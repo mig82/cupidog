@@ -1,0 +1,94 @@
+/*$female-back: #FFE2EE;*/
+/*$male-back: #DDEEFF;*/
+.profile-container, .profile-female, .profile-male {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  border-width: 1px;
+  border-style: solid;
+  position: relative;
+  margin-bottom: 5px;
+  box-shadow: 0px 5px 5px 2px #BBB; }
+
+.profile-female {
+  /*border-color: $female-fore;*/
+  color: #555;
+  background-color: #FEEEF4; }
+  .profile-female .panel-heading {
+    /*background-image: linear-gradient(to bottom,$female-back 0,$female-fore 100%);*/
+    background-image: linear-gradient(to bottom, #ce0058 0, #ce0058 100%);
+    color: white;
+    font-weight: bold;
+    /*box-shadow: $box-shadow;*/ }
+  .profile-female blockquote {
+    border-color: #ce0058; }
+
+.profile-male {
+  /*border-color: $male-fore;*/
+  color: #555;
+  background-color: #E9F3FC; }
+  .profile-male .panel-heading {
+    /*background-image: linear-gradient(to bottom,$male-back 0,$male-fore 100%);*/
+    background-image: linear-gradient(to bottom, #005eb8 0, #005eb8 100%);
+    color: white;
+    font-weight: bold;
+    box-shadow: 0px 5px 5px 2px #BBB; }
+  .profile-male blockquote {
+    border-color: #005eb8; }
+
+div.profile-pic {
+  max-height: 100px;
+  max-width: 100px;
+  margin: 15px; }
+
+@media (min-width: 992px) {
+  max-height: 200px;
+  max-width: 200px;
+  margin: 15px; }
+.profile-label {
+  font-weight: bold; }
+
+.sp-ico {
+  fill: currentColor;
+  max-height: 30px;
+  max-width: 30px; }
+
+.standard-ico {
+  fill: currentColor;
+  max-height: 20px;
+  max-width: 20px; }
+
+.svg-sp-ico {
+  display: inline; }
+
+li.pet-list {
+  padding: 5px 0px;
+  background-color: rgba(255, 255, 255, 0);
+  border: none; }
+
+.cupidog-brand {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 10px;
+  padding-left: 10px; }
+  .cupidog-brand img {
+    width: 40px; }
+
+.topbar {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  position: fixed !important;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  z-index: 1000;
+  /*background-image: linear-gradient(to bottom, #FFFFFF 0, #00C2C2 100%);*/
+  background-color: #00F2F2;
+  box-shadow: 0px 5px 5px 2px #BBB; }
+
+.nav-ico {
+  max-width: 20px;
+  max-height: 20px; }
+
+body {
+  /*background-color: rgb(226, 255, 255)*/
+  background-color: #FFF; }
+
+/*# sourceMappingURL=cupidog.css.map */
