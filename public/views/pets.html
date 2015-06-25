@@ -1,0 +1,86 @@
+<div data-ng-controller="PetsCtrl">
+	<ul class="list-group">
+		<li class="list-group-item pet-list" data-ng-repeat="pet in user.pets">
+			<div class="panel panel-default profile-container" data-ng-class="pet.gender=='m'?'profile-male':'profile-female'"/>
+				<div class="panel-heading">{{pet.name}}</div>
+				
+				<div class="panel-body container-fluid">
+					<div class="row">
+
+						<div class="col-xs-12 col-md-3 profile-pic ">
+							<img class="img-responsive center-block img-thumbnail" ng-src="{{pet.profilePic}}">
+						</div>
+						
+						<div class="col-xs-9">
+
+							<div class="container-fluid">
+								<div class="row">
+
+									<div class="col-xs-4 col-md-3">
+										<span class="sr-only">Species</span>
+										<div class="svg-sp-ico" title="{{pet.sp}}">
+											<svg  viewBox="0 0 489.751 489.751" class="sp-ico">
+												<use data-ng-if="pet.sp=='dog'" xlink:href="#dog-ico"></use>
+												<use data-ng-if="pet.sp=='cat'"  xlink:href="#cat-ico"></use>
+											</svg>
+										</div>
+										<div class="svg-sp-ico">
+											<svg  viewBox="0 0 23.217 23.217" class="standard-ico">
+												<use data-ng-if="pet.inHeat" xlink:href="#heart-ico"></use>
+											</svg>
+										</div>
+									</div>
+
+									<div class="col-xs-8 col-md-3 text-capitalize">
+										<span class="profile-label">Race</span>
+										<span class="text-capitalize">{{pet.race}}</span>
+									</div>
+
+									<div class="col-xs-12 col-md-3">
+										<span class="profile-label">Age</span>
+										{{pet.age}} years
+									</div>
+									
+									<div class="col-xs-12 col-md-3">
+										<span class="profile-label">Weight</span>
+										{{pet.weight}} Kg
+									</div>
+									
+									<div class="col-xs-12 col-md-3" data-ng-if="pet.pedigree">
+										<span class="profile-label">Pedigree</span>
+										{{pet.pedigree}}
+									</div>
+									
+									<div class="col-xs-12 col-md-3">
+										<span class="profile-label">I've been a parent before</span>
+										{{pet.parenthood}}
+									</div>
+
+									<div class="col-xs-12 col-md-3">
+										<span class="profile-label">I live in</span>
+										{{pet.location}}
+									</div>
+
+									
+
+								</div>
+
+								<div class="row">
+									<div class="col-xs-9">
+										<blockquote>
+											<p>{{pet.desc}}</p>
+											<footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
+										</blockquote>
+									</div>
+								</div>
+							</div>
+						
+						</div>
+
+					</div><!--row-->
+				</div>
+				
+			</div>
+		</li>
+	</ul>
+</div>

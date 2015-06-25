@@ -1,0 +1,87 @@
+<div data-ng-controller="AddPetCtrl">
+	<div class="container">
+		<form class="form-horizontal">
+			<div class="form-group">
+				<label class="col-xs-4 control-label">Name</label>
+				<div class="col-xs-8">
+					<input class="form-control" type="text" placeholder="Bingo" data-ng-model="pet.name" required>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-xs-4 control-label">Species</label>
+				<div class="col-xs-8">
+					<span>{{pet.sp}}</span>
+					<input class="form-control" type="text" placeholder="Dog, cat, huron, hamster, turtle, parrot, horse..." data-ng-model="spSearch" required>
+					<ul ng-show="spSearch" class="list-group">
+						<li ng-repeat="sp in species | filter:spSearch" class="list-group-item"><span ng-click="setSpecies(sp)">{{sp}}</span></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-xs-4 control-label">Race</label>
+				<div class="col-xs-8">
+					<input class="form-control" type="text" placeholder="" data-ng-model="pet.race">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-xs-4 control-label">Gender</label>
+				<div class="col-xs-8">
+					<!--input class="form-control" type="text" placeholder="'f' (for female), 'm' (for male)" data-ng-model="pet.gender"-->
+					<select class="form-control" data-ng-model="pet.gender" required>
+						<option value="f">Female</option>
+						<option value="m">Male</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-xs-4 control-label">Date of Birth</label>
+				<div class="col-xs-8">
+					<input class="form-control" type="date" placeholder="dd/mm/yyyy" data-ng-model="pet.birth">
+					<input class="form-control" type="text" placeholder="dd/mm/yyyy" data-ng-model="pet.birth" bs-datepicker>
+					<!--select >
+						<option data-ng-repeat="i in getRange(1,31)" value="{{i}}" data-ng-model="pet.birth.d">{{i}}</option>
+					</select>
+					<select >
+						<option data-ng-repeat="i in getRange(1,12)" value="{{i}}" data-ng-model="pet.birth.m">{{i}}</option>
+					</select>
+					<select >
+						<option data-ng-repeat="i in getYearOpts()" value="{{i}}" data-ng-model="pet.birth.y">{{i}}</option>
+					</select-->
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-xs-4 control-label">Description</label>
+				<div class="col-xs-8">
+					<textarea class="form-control" placeholder="{{pet.name?'Tell us a little about '+pet.name:'Tell us a little about your pet'}}" data-ng-model="pet.desc" ng-maxlength="200"></textarea>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-xs-4 control-label">Location</label>
+				<div class="col-xs-8">
+					<input class="form-control" type="text" placeholder="" data-ng-model="pet.location">
+				</div>
+
+			</div>
+			<div data-ng-show="pet.location">
+				<div class="col-xs-12">
+					<iframe width="100%" height="300" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?
+					q=madrid&
+					zoom=13&
+					key=AIzaSyBqNwJjGnmVqHMrBpMsUl7lHutzp7gqIoc"></iframe>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-xs-12">
+					<button class="btn btn-block btn-primary" data-ng-click="addPet()">Save</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

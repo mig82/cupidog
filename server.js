@@ -1,17 +1,24 @@
 "use strict";
 var express = require('express');
 var app = express();
+app.use(express.static(__dirname + "/public"));
+
+var mongojs = require('mongojs');
+var db = mongojs('cupidog', ['users', 'pets']);
+
+var bp = require('body-parser');
+app.use(bp.json());
 
 /*app.get('/', function(req, res){
 	res.send("Hello world from CupiDog");
 });*/
 
-app.use(express.static(__dirname + "/public"));
-
 app.get("/pets", function(req, res){
 	console.log("I received a get request");
 
-	var p1 = {
+	/*var p1 = {
+		_id: 1,
+		user_id: 1,
 		name: "Bruce",
 		gender: "m",
 		sp: "dog",
@@ -27,6 +34,8 @@ app.get("/pets", function(req, res){
 	};
 
 	var p2 = {
+		_id: 2,
+		user_id: 1,
 		name: "Sombra",
 		gender: "f",
 		sp: "dog",
@@ -43,6 +52,8 @@ app.get("/pets", function(req, res){
 	};
 
 	var p3 = {
+		_id: 3,
+		user_id: 1,
 		name: "Bola de Pelo",
 		gender: "f",
 		sp: "cat",
@@ -58,7 +69,8 @@ app.get("/pets", function(req, res){
 	};
 
 	var user = {
-		pets: [p1, p2, p3],
+		_id: 1,
+		_pets: [1, 2, 3],
 		contactInfo: {
 			email: "miguelangelxfm@gmail.com",
 			mobile: "(+34)777.77.77.66",
@@ -66,7 +78,26 @@ app.get("/pets", function(req, res){
 		}
 	};
 
-	res.json(user);
+	db.users.insert(user);
+	db.pets.insert([p1,p2,p3]);*/
+
+	db.users.findOne( {_id:1}, function(err, user){
+			
+			db.pets.find(function(err, pets){
+				user.pets = pets;
+				console.log("This is what I've found %o", user);
+				res.json(user);
+			});
+	});
+
+	//res.json(user);
+});
+
+app.post("/pets", function(req, res){
+	console.log("I received a post request with %o", req.body);
+	db.pets.insert(req.body, function(err, pet){
+		res.json(pet);
+	});
 });
 
 app.listen(3000)

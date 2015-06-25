@@ -1,0 +1,33 @@
+{
+  "name": "cupidog",
+  "version": "0.0.1",
+  "description": "The social network for animals and animal lovers.",
+  "main": "server.js",
+  "dependencies": {
+    "express": "~4.12.4",
+    "mongojs": "~1.0.1",
+    "body-parser": "~1.13.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mig82/cupidog.git"
+  },
+  "keywords": [
+    "social",
+    "network",
+    "pet",
+    "animal",
+    "dogs",
+    "cats"
+  ],
+  "author": "Miguelangel Fernandez",
+  "license": "none",
+  "bugs": {
+    "url": "https://github.com/mig82/cupidog/issues"
+  }
+}

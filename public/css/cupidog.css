@@ -8,6 +8,19 @@
   margin-bottom: 5px;
   box-shadow: 0px 5px 5px 2px #BBB; }
 
+.sp-ico {
+  fill: currentColor;
+  max-height: 30px;
+  max-width: 30px; }
+
+.standard-ico {
+  fill: currentColor;
+  max-height: 20px;
+  max-width: 20px; }
+
+.svg-sp-ico {
+  display: inline; }
+
 .profile-female {
   /*border-color: $female-fore;*/
   color: #555;
@@ -18,6 +31,8 @@
     color: white;
     font-weight: bold;
     /*box-shadow: $box-shadow;*/ }
+  .profile-female .sp-ico, .profile-female .standard-ico {
+    fill: #ce0058; }
   .profile-female blockquote {
     border-color: #ce0058; }
 
@@ -31,6 +46,8 @@
     color: white;
     font-weight: bold;
     box-shadow: 0px 5px 5px 2px #BBB; }
+  .profile-male .sp-ico, .profile-male .standard-ico {
+    fill: #005eb8; }
   .profile-male blockquote {
     border-color: #005eb8; }
 
@@ -45,19 +62,6 @@ div.profile-pic {
   margin: 15px; }
 .profile-label {
   font-weight: bold; }
-
-.sp-ico {
-  fill: currentColor;
-  max-height: 30px;
-  max-width: 30px; }
-
-.standard-ico {
-  fill: currentColor;
-  max-height: 20px;
-  max-width: 20px; }
-
-.svg-sp-ico {
-  display: inline; }
 
 li.pet-list {
   padding: 5px 0px;

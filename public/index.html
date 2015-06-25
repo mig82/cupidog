@@ -2,24 +2,27 @@
 <html lang="en" data-ng-app="cupidog" >
 	<head>
 		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 		<!-- Optional theme -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
 
 		<link rel="stylesheet" type="text/css" href="css/cupidog.css">
 		<title>CupiDog</title>
 
 	</head>
 	<body>
-		<div class="container">
+		<div class="container_">
 
 			
 			
 			<div data-ng-include="'includes/top-navbar.html'"></div>
 
+			<!--div data-ng-include="'includes/nav-tabs.html'"></div-->
+
 			<ol class="breadcrumb">
-				<li><a href="#home">Home</a></li>
-				<li class="active">My Pets</li>
+				<li class="active"><a href="#home">Home</a></li>
+				<li><a href="#pets">My Pets</a></li>
+				<li><a href="#addpet">New Pet</a></li>
 			</ol>
 
 			<div id="view1" ng-view></div>
@@ -28,14 +31,20 @@
 		
 		<div data-ng-include="'img/icons/sp-icons.svg'" style="display:none"></div>
 
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js" ></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular-route.min.js" ></script>
+		<script src="bower_components/angular/angular.min.js" ></script>
+		<script src="lib/angular_extras/angular-route.min.js" ></script>
+
+		<script src="bower_components/angular-strap/dist/angular-strap.js"></script>
+		<script src="bower_components/angular-strap/dist/angular-strap.tpl.js"></script>
+
+		<script src="bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script><!--Need this for the top navbar to work-->
+		
 		<script src="app/js/app.js"></script>
 		<script src="app/js/ctrl/HomeCtrl.js"></script>
+		<script src="app/js/ctrl/PetsCtrl.js"></script>
+		<script src="app/js/ctrl/AddPetCtrl.js"></script>
 
-		<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-		<!-- Latest compiled and minified JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	</body>
 	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 	<footer>

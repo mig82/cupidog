@@ -1,0 +1,38 @@
+{
+  "name": "Cupidog",
+  "version": "0.0.1",
+  "homepage": "https://github.com/mig82/cupidog",
+  "description": "The social network for pets that love people.",
+  "main": "index.html",
+  "keywords": [
+    "social",
+    "network",
+    "pet",
+    "pets",
+    "dog",
+    "cat",
+    "mouse",
+    "hamster",
+    "turtle",
+    "veterinarian",
+    "dog",
+    "food"
+  ],
+  "authors": [
+    "Miguelangel Fernandez"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-strap": "~2.2.4",
+    "jquery": "~2.1.4",
+    "angular": "1.3.16",
+    "bootstrap": "~3.3.5"
+  }
+}
