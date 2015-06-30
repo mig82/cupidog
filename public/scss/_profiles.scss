@@ -6,7 +6,7 @@ $female-back: #FEEEF4;
 $male-fore: #005eb8;
 /*$male-back: #DDEEFF;*/
 $male-back: #E9F3FC;
-$box-shadow: 0px 5px 5px 2px #BBB;
+/*$box-shadow: 0px 5px 5px 2px #BBB;*/
 
 .profile-container{
 	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -14,7 +14,7 @@ $box-shadow: 0px 5px 5px 2px #BBB;
 	border-style: solid;
 	position: relative;
 	margin-bottom: 5px;
-	box-shadow: $box-shadow;
+	@include box-shadow-helper(2);
 }
 
 .sp-ico{
@@ -45,6 +45,7 @@ $box-shadow: 0px 5px 5px 2px #BBB;
 		color: white;
 		font-weight: bold;
 		/*box-shadow: $box-shadow;*/
+		@include box-shadow-helper(1);
 	}
 
 	.sp-ico, .standard-ico{
@@ -67,7 +68,8 @@ $box-shadow: 0px 5px 5px 2px #BBB;
 		background-image: linear-gradient(to bottom,$male-fore 0,$male-fore 100%);
 		color: white;
 		font-weight: bold;
-		box-shadow: $box-shadow;
+		/*box-shadow: $box-shadow;*/
+		@include box-shadow-helper(1);
 	}
 
 	.sp-ico, .standard-ico{

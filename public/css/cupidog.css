@@ -1,12 +1,13 @@
 /*$female-back: #FFE2EE;*/
 /*$male-back: #DDEEFF;*/
+/*$box-shadow: 0px 5px 5px 2px #BBB;*/
 .profile-container, .profile-female, .profile-male {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   border-width: 1px;
   border-style: solid;
   position: relative;
   margin-bottom: 5px;
-  box-shadow: 0px 5px 5px 2px #BBB; }
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); }
 
 .sp-ico {
   fill: currentColor;
@@ -30,7 +31,8 @@
     background-image: linear-gradient(to bottom, #ce0058 0, #ce0058 100%);
     color: white;
     font-weight: bold;
-    /*box-shadow: $box-shadow;*/ }
+    /*box-shadow: $box-shadow;*/
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); }
   .profile-female .sp-ico, .profile-female .standard-ico {
     fill: #ce0058; }
   .profile-female blockquote {
@@ -45,7 +47,8 @@
     background-image: linear-gradient(to bottom, #005eb8 0, #005eb8 100%);
     color: white;
     font-weight: bold;
-    box-shadow: 0px 5px 5px 2px #BBB; }
+    /*box-shadow: $box-shadow;*/
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); }
   .profile-male .sp-ico, .profile-male .standard-ico {
     fill: #005eb8; }
   .profile-male blockquote {
@@ -91,8 +94,53 @@ li.pet-list {
   max-width: 20px;
   max-height: 20px; }
 
+.type-ahead-container {
+  position: relative; }
+
+ul.type-ahead-results {
+  z-index: 100;
+  position: absolute;
+  cursor: pointer; }
+
+.hiddeninput {
+  visibility: hidden;
+  position: absolute;
+  z-index: -100; }
+
+.btn-add {
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  -ms-border-radius: 100%;
+  border-radius: 100%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  width: 3em;
+  height: 3em;
+  background-color: #FF0075;
+  color: #fff;
+  text-align: center; }
+  .btn-add:hover {
+    background-color: #DE00FF;
+    color: #fff !important; }
+
 body {
   /*background-color: rgb(226, 255, 255)*/
   background-color: #FFF; }
+
+input, select, textarea, span.readonly-field {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  border-radius: 0;
+  box-shadow: none !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-bottom: 2px solid #CFAE76 !important;
+  padding: 6px 12px; }
+
+.my-form-control {
+  display: block;
+  width: 100%;
+  background-color: #fff; }
 
 /*# sourceMappingURL=cupidog.css.map */

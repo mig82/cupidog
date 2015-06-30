@@ -1,0 +1,11 @@
+
+
+.type-ahead-container{
+	position: relative;
+}
+
+ul.type-ahead-results{
+	z-index: 100;
+	position: absolute;
+	cursor: pointer;
+}

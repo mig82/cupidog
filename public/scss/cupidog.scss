@@ -1,7 +1,26 @@
+@import 'common-mixins';
 @import 'profiles';
 @import 'topnavbar';
+@import 'typeahead';
+@import 'addpet';
 
 body{
 	/*background-color: rgb(226, 255, 255)*/
 	background-color: #FFF;
+}
+
+input, select, textarea, span.readonly-field{
+	@include border-radius(0);
+	box-shadow: none !important;
+	border-top: none !important;
+	border-left: none !important;
+	border-right: none !important;
+	border-bottom: 2px solid #CFAE76 !important;
+	padding: 6px 12px;
+}
+
+.my-form-control{
+	display: block;
+	width: 100%;
+	background-color: #fff;
 }
