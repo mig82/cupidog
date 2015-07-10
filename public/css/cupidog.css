@@ -3,11 +3,13 @@
 /*$box-shadow: 0px 5px 5px 2px #BBB;*/
 .profile-container, .profile-female, .profile-male {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  border-width: 1px;
-  border-style: solid;
   position: relative;
   margin-bottom: 5px;
+  border: none !important;
+  border-radius: 0px !important;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); }
+  .profile-container blockquote, .profile-female blockquote, .profile-male blockquote {
+    font-size: 1em; }
 
 .sp-ico {
   fill: currentColor;
@@ -25,34 +27,34 @@
 .profile-female {
   /*border-color: $female-fore;*/
   color: #555;
-  background-color: #FEEEF4; }
+  /*background-color: $female-back;*/ }
   .profile-female .panel-heading {
     /*background-image: linear-gradient(to bottom,$female-back 0,$female-fore 100%);*/
-    background-image: linear-gradient(to bottom, #ce0058 0, #ce0058 100%);
+    background-image: linear-gradient(to bottom, #FF607C 0, #FF607C 100%);
     color: white;
     font-weight: bold;
-    /*box-shadow: $box-shadow;*/
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); }
+    border: none !important;
+    border-radius: 0px !important; }
   .profile-female .sp-ico, .profile-female .standard-ico {
-    fill: #ce0058; }
+    fill: #FF607C; }
   .profile-female blockquote {
-    border-color: #ce0058; }
+    border-color: #FF607C; }
 
 .profile-male {
   /*border-color: $male-fore;*/
   color: #555;
-  background-color: #E9F3FC; }
+  /*background-color: $male-back;*/ }
   .profile-male .panel-heading {
     /*background-image: linear-gradient(to bottom,$male-back 0,$male-fore 100%);*/
-    background-image: linear-gradient(to bottom, #005eb8 0, #005eb8 100%);
+    background-image: linear-gradient(to bottom, #54C6E1 0, #54C6E1 100%);
     color: white;
     font-weight: bold;
-    /*box-shadow: $box-shadow;*/
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); }
+    border: none !important;
+    border-radius: 0px !important; }
   .profile-male .sp-ico, .profile-male .standard-ico {
-    fill: #005eb8; }
+    fill: #54C6E1; }
   .profile-male blockquote {
-    border-color: #005eb8; }
+    border-color: #54C6E1; }
 
 div.profile-pic {
   max-height: 100px;
@@ -71,6 +73,32 @@ li.pet-list {
   background-color: rgba(255, 255, 255, 0);
   border: none; }
 
+ul.pet-list {
+  box-shadow: none !important; }
+
+.std-panel-head {
+  background-color: #63D7B0 !important;
+  background-image: none !important;
+  color: #fff !important;
+  font-weight: bold; }
+
+.trophy-icon {
+  max-height: 1.5em;
+  max-width: 1.5em; }
+
+.tags-container {
+  background-color: #FFF;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  padding: 0.5em; }
+  .tags-container .std-tag {
+    background-color: #FFF;
+    padding: 0.1em 0.5em;
+    white-space: nowrap;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); }
+
+.profile-row {
+  margin-bottom: 0.5em; }
+
 .cupidog-brand {
   padding-top: 5px;
   padding-bottom: 5px;
@@ -81,18 +109,31 @@ li.pet-list {
 
 .topbar {
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  position: fixed !important;
+  /*position: fixed !important;*/
   top: 0px;
   right: 0px;
   left: 0px;
   z-index: 1000;
   /*background-image: linear-gradient(to bottom, #FFFFFF 0, #00C2C2 100%);*/
-  background-color: #00F2F2;
-  box-shadow: 0px 5px 5px 2px #BBB; }
+  background-color: #FFF;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); }
 
 .nav-ico {
   max-width: 20px;
   max-height: 20px; }
+
+a.topbar-nav, a.topbar-nav:hover,
+a.topbar-nav:focus,
+a.topbar-nav:active {
+  color: #6487BF;
+  border-bottom: 4px solid #FFF;
+  background-color: #FFF !important;
+  color: #5C6278; }
+
+a.topbar-nav:hover,
+a.topbar-nav:focus,
+a.topbar-nav:active {
+  border-bottom: 4px solid #60D9AE; }
 
 .type-ahead-container {
   position: relative; }
@@ -122,9 +163,16 @@ ul.type-ahead-results {
     background-color: #DE00FF;
     color: #fff !important; }
 
+input.ng-invalid-required.ng-dirty {
+  background-color: #FFEDF1; }
+
+.required-field::after {
+  content: " *";
+  color: red; }
+
 body {
   /*background-color: rgb(226, 255, 255)*/
-  background-color: #FFF; }
+  background-color: #F6F6F6; }
 
 input, select, textarea, span.readonly-field {
   -webkit-border-radius: 0;
@@ -136,11 +184,25 @@ input, select, textarea, span.readonly-field {
   border-left: none !important;
   border-right: none !important;
   border-bottom: 2px solid #CFAE76 !important;
-  padding: 6px 12px; }
+  padding: 6px 12px;
+  width: 100%;
+  display: block;
+  transition: 0.5s linear all; }
 
 .my-form-control {
   display: block;
   width: 100%;
   background-color: #fff; }
+
+.left-sect, .right-sect, .center-sect {
+  background-color: none;
+  margin-left: 0.2em;
+  margin-right: 0.2em;
+  padding: 1em 0.2em; }
+
+.action-icon {
+  max-height: 1.5em;
+  max-width: 1.5em;
+  cursor: pointer; }
 
 /*# sourceMappingURL=cupidog.css.map */

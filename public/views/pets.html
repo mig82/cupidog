@@ -1,85 +1,87 @@
 <div data-ng-controller="PetsCtrl">
-	<ul class="list-group">
+	<ul class="list-group pet-list">
 		<li class="list-group-item pet-list" data-ng-repeat="pet in user.pets">
 			<div class="panel panel-default profile-container" data-ng-class="pet.gender=='m'?'profile-male':'profile-female'"/>
-				<div class="panel-heading">{{pet.name}}</div>
+				<div class="panel-heading">
+					<span class="">{{pet.name}}</span>
+					<a class="pull-right" data-ng-click="gotoUpdate(pet._id)" ><img class="action-icon" src="img/icons/edit.svg"></a>
+				</div>
 				
 				<div class="panel-body container-fluid">
-					<div class="row">
+					
+					<div class="row profile-row">
 
 						<div class="col-xs-12 col-md-3 profile-pic ">
 							<img class="img-responsive center-block img-thumbnail" ng-src="{{pet.profilePic}}">
 						</div>
 						
-						<div class="col-xs-9">
-
-							<div class="container-fluid">
-								<div class="row">
-
-									<div class="col-xs-4 col-md-3">
-										<span class="sr-only">Species</span>
-										<div class="svg-sp-ico" title="{{pet.sp}}">
-											<svg  viewBox="0 0 489.751 489.751" class="sp-ico">
-												<use xlink:href="{{pet.spIco}}"></use>
-											</svg>
-										</div>
-										<div class="svg-sp-ico">
-											<svg  viewBox="0 0 23.217 23.217" class="standard-ico">
-												<use data-ng-if="pet.inHeat" xlink:href="#heart-ico"></use>
-											</svg>
-										</div>
-									</div>
-
-									<div class="col-xs-8 col-md-3 text-capitalize">
-										<span class="profile-label">Breed</span>
-										<span class="text-capitalize">{{pet.breed}}</span>
-									</div>
-
-									<div class="col-xs-12 col-md-3">
-										<span class="profile-label">Age</span>
-										{{pet.age}} years
-									</div>
-									
-									<div class="col-xs-12 col-md-3">
-										<span class="profile-label">Weight</span>
-										{{pet.weight}} Kg
-									</div>
-									
-									<div class="col-xs-12 col-md-3" data-ng-if="pet.pedigree">
-										<span class="profile-label">Pedigree</span>
-										{{pet.pedigree}}
-									</div>
-									
-									<div class="col-xs-12 col-md-3">
-										<span class="profile-label">I've been a parent before</span>
-										{{pet.parenthood}}
-									</div>
-
-									<div class="col-xs-12 col-md-3">
-										<span class="profile-label">I live in</span>
-										{{pet.loc.addr}}
-									</div>
-
-									
-
-								</div>
-
-								<div class="row">
-									<div class="col-xs-9">
-										<blockquote>
-											<p>{{pet.desc}}</p>
-											<footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
-										</blockquote>
-									</div>
-								</div>
-							</div>
 						
+						<div class="col-xs-4 col-md-3">
+							<span class="sr-only">Species</span>
+							<div class="svg-sp-ico" title="{{pet.sp}}">
+								<svg  viewBox="0 0 489.751 489.751" class="sp-ico">
+									<use xlink:href="{{pet.spIco}}"></use>
+								</svg>
+							</div>
+							<span class="text-capitalize">{{pet.sp}}</span>
+						</div>
+
+						<div class="col-xs-8 col-md-3 text-capitalize">
+							<span ng-show="pet.breed" class="profile-label">Breed</span>
+							<span class="text-capitalize">{{pet.breed}}</span>
+						</div>
+
+						<div class="col-xs-2 svg-sp-ico">
+							<svg  viewBox="0 0 23.217 23.217" class="standard-ico">
+								<use data-ng-if="true" xlink:href="#heart-ico"></use>
+							</svg>
+						</div>
+
+						<div class="col-xs-12 col-md-3">
+							<span class="profile-label">Date of Birth</span>
+							{{pet.birth | date}}
+						</div>
+						
+						<div class="col-xs-12">
+							<span class="profile-label">I live in</span>
+							{{pet.loc.addr}}
+						</div>
+
+						<div class="col-xs-12">
+							<blockquote>
+								<p>{{pet.desc}}</p>
+								<!--footer>Someone famous in <cite title="Source Title">Source Title</cite></footer-->
+							</blockquote>
 						</div>
 
 					</div><!--row-->
+
+					<div class="row profile-row">
+						<ul class="list-inline col-xs-12">
+							<li><img class="trophy-icon" src="/img/icons/trophy.svg"></li>
+							<li><img class="trophy-icon" src="/img/icons/trophy.svg"></li>
+							<li><img class="trophy-icon" src="/img/icons/trophy.svg"></li>
+						</ul>
+					</div>
+					
+					<div class="row profile-row">
+						<span class="text-capitalize col-xs-4">I like</span>
+						<div class="tags-container col-xs-8">
+							<span class="std-tag">sleeping in my owners bed <a href="">&times;</a></span>
+							<span class="std-tag">peeing in the house <a href="">&times;</a></span>
+						</div>
+					</div>
+
+					<div class="row profile-row">
+						<span class="text-capitalize col-xs-4">My packs</span>
+						<div class="tags-container col-xs-8">
+							<span class="std-tag">test <a href="">&times;</a></span>
+						</div>
+					</div>
 				</div>
 				
 			</div>
 		</li>
 	</ul>
+	<div data-ng-show="!user.pets">It's lonely here. You have no pets yet</div>
 </div>

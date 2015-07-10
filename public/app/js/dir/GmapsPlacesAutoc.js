@@ -19,7 +19,7 @@ angular.module('cupidog').directive('gmapsPlacesAutoc', [function(){
 		link: function($scope, iElm, iAttrs, controller) {
 
 			var input = document.getElementById(iElm.attr('id'));
-			var autocomplete = new google.maps.places.Autocomplete(input);
+			var autocomplete = new google.maps.places.Autocomplete(input, {types:['(cities)']});
 			
 			google.maps.event.addListener(autocomplete, 'place_changed', function() {
 				var place = autocomplete.getPlace();

@@ -1,20 +1,24 @@
 
-$female-fore: #ce0058;
+$female-fore: #FF607C;
 /*$female-back: #FFE2EE;*/
 $female-back: #FEEEF4;
 
-$male-fore: #005eb8;
+$male-fore: #54C6E1;
 /*$male-back: #DDEEFF;*/
 $male-back: #E9F3FC;
 /*$box-shadow: 0px 5px 5px 2px #BBB;*/
 
 .profile-container{
 	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-	border-width: 1px;
-	border-style: solid;
 	position: relative;
 	margin-bottom: 5px;
+	border: none !important;
+	border-radius: 0px !important;
 	@include box-shadow-helper(2);
+
+	blockquote{
+		font-size: 1em;
+	}
 }
 
 .sp-ico{
@@ -37,15 +41,15 @@ $male-back: #E9F3FC;
 	@extend .profile-container;
 	/*border-color: $female-fore;*/
 	color: #555;
-	background-color: $female-back;
+	/*background-color: $female-back;*/
 
 	.panel-heading{
 		/*background-image: linear-gradient(to bottom,$female-back 0,$female-fore 100%);*/
 		background-image: linear-gradient(to bottom,$female-fore 0,$female-fore 100%);
 		color: white;
 		font-weight: bold;
-		/*box-shadow: $box-shadow;*/
-		@include box-shadow-helper(1);
+		border: none !important;
+		border-radius: 0px !important;
 	}
 
 	.sp-ico, .standard-ico{
@@ -61,15 +65,15 @@ $male-back: #E9F3FC;
 	@extend .profile-container;
 	/*border-color: $male-fore;*/
 	color: #555;
-	background-color: $male-back;
+	/*background-color: $male-back;*/
 
 	.panel-heading{
 		/*background-image: linear-gradient(to bottom,$male-back 0,$male-fore 100%);*/
 		background-image: linear-gradient(to bottom,$male-fore 0,$male-fore 100%);
 		color: white;
 		font-weight: bold;
-		/*box-shadow: $box-shadow;*/
-		@include box-shadow-helper(1);
+		border: none !important;
+		border-radius: 0px !important;
 	}
 
 	.sp-ico, .standard-ico{
@@ -80,8 +84,6 @@ $male-back: #E9F3FC;
 		border-color: $male-fore;
 	}
 }
-
-
 
 div.profile-pic{
 	max-height: 100px;
@@ -103,4 +105,39 @@ li.pet-list{
 	padding: 5px 0px;
 	background-color: rgba(255, 255, 255, 0);
 	border: none;
+}
+
+ul.pet-list{
+	box-shadow: none !important;
+}
+
+.std-panel-head{
+	background-color: #63D7B0 !important;
+	background-image: none !important;
+	color: #fff !important;
+	font-weight: bold;
+}
+
+.trophy-icon{
+	max-height: 1.5em;
+	max-width: 1.5em;
+}
+
+.tags-container{
+
+	background-color: #FFF;
+	@include box-shadow-helper(1);
+	padding: 0.5em;
+
+	.std-tag{
+		background-color: #FFF;
+		padding: 0.1em 0.5em;
+		white-space: nowrap;
+		@include box-shadow-helper(1);
+	}
+}
+
+.profile-row{
+	margin-bottom: 0.5em;
+
 }

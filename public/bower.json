@@ -13,7 +13,8 @@
     "cat",
     "mouse",
     "hamster",
-    "turtle",
+    "turtle", "tortoise",
+    "bird", "parrot", "canary",
     "veterinarian",
     "dog",
     "food"
@@ -21,7 +22,8 @@
   "authors": [
     "Miguelangel Fernandez"
   ],
-  "license": "MIT",
+  "license": "UNLICENSED",
+  "private": true,
   "ignore": [
     "**/.*",
     "node_modules",

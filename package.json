@@ -26,7 +26,8 @@
     "cats"
   ],
   "author": "Miguelangel Fernandez",
-  "license": "none",
+  "private": true,
+  "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/mig82/cupidog/issues"
   }

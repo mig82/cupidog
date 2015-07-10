@@ -1,0 +1,8 @@
+input.ng-invalid-required.ng-dirty{
+	background-color: #FFEDF1;
+}
+
+.required-field::after {
+	content: " *"; 
+	color: red;
+}

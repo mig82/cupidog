@@ -11,21 +11,15 @@
 
 	</head>
 	<body>
-		<div class="container_">
+		<div data-ng-include="'includes/top-navbar.html'"></div>
 
-			
-			
-			<div data-ng-include="'includes/top-navbar.html'"></div>
+		<div class="container">
 
-			<!--div data-ng-include="'includes/nav-tabs.html'"></div-->
-
-			<ol class="breadcrumb">
-				<li class="active"><a href="#home">Home</a></li>
-				<li><a href="#pets">My Pets</a></li>
-				<li><a href="#addpet">New Pet</a></li>
-			</ol>
-
-			<div id="view1" ng-view></div>
+			<div class="row">
+				<aside id="leftSection" class="col-md-2 hidden-xs hidden-sm left-sect" data-ng-include="'includes/user-info.html'"></aside>
+				<div id="centerSection" class="col-md-7 center-sect" ng-view></div>
+				<aside id="rightSection" class="col-md-2 hidden-xs hidden-sm right-sect" >Ads go here</aside>
+			</div>
 
 		</div>
 		
@@ -44,14 +38,14 @@
 		<script src="app/js/ctrl/HomeCtrl.js"></script>
 		<script src="app/js/ctrl/PetsCtrl.js"></script>
 		<script src="app/js/ctrl/AddPetCtrl.js"></script>
-		
+		<script src="app/js/util/util.js"></script>
 
 		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
 
 		<script src="app/js/dir/GmapsPlacesAutoc.js"></script>
 	</body>
 	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-	<footer>
+	<footer class="main-footer">
 		<div>Icons made by <a href="http://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>             is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
 	</footer>
 </html>
