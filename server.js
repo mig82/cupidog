@@ -4,10 +4,6 @@ var express = require('express');
 var app = express();
 app.use(express.static(__dirname + "/public"));
 
-var mongojs = require('mongojs');
-var db = mongojs('cupidog', ['users', 'pets', 'species', 'breeds']);
-global.Users = db.users;
-
 var bp = require('body-parser');
 app.use(bp.json());
 
@@ -16,73 +12,56 @@ app.use(bp.json());
 });*/
 
 
-var passport = require('./authenticate').passport;
+var passport = require('./server/config/authenticate').passport;
 
+var ds = require('./server/datastore/datastore');
+var Pets = ds.Pets;
+var Breeds = ds.Breeds;
+var Species = ds.Species;
+var Users = ds.Users;
+
+/**
+	EndPoint: cupidog.com/api/pets?user=123
+	String user: the Id for the user whose pets are requested.
+*/
 app.get("/api/pets", function(req, res){
 	var userId = req.query.user;
 	console.log("I received a pets get request for user %o", userId);
 
-	db.pets.find( {_user: mongojs.ObjectId(userId) }, function(err, pets){
+	Pets.findPetsByUser(userId).then(function(pets){
 		res.json(pets);
 	});
+
 });
 
 app.post("/api/pets", function(req, res){
 	
-	var _pet = req.body;
-	console.log("POST req for pet %o", _pet);
-	_pet._user = mongojs.ObjectId(_pet._user);
+	var newPet = req.body;
+	console.log("POST req for pet %o", newPet);
 
-	db.pets.insert(req.body, function(err, pet){
+	Pets.createPetForUser(newPet).then(function(pet){
 		res.json(pet);
-	});
-});
-
-app.put("/api/pets/:id/likes", function(req, res){
-	
-	var likes = req.body;
-	console.log("PUT req for likes %o", req.params.id);
-	
-	db.pets.findAndModify({
-		query: {_id: mongojs.ObjectId(req.params.id)},
-		update: {$set: { likes: likes }},
-		new: true
-	}, function(err, doc){
-		console.log("updated %o", doc);
-		res.json(doc);
 	});
 });
 
 app.put("/api/pets/:id", function(req, res){
 	
 	var _pet = req.body;
+	_pet._id = req.params.id;
 	console.log("PUT req for pet %o", _pet);
 
-	db.pets.findAndModify({
-		query: {_id: mongojs.ObjectId(req.params.id) },
-		update: {$set: {
-			name: _pet.name,
-			sp: _pet.sp,
-			breed: _pet.breed,
-			gender: _pet.gender,
-			loc: _pet.loc,
-			birthDate: _pet.birthDate,
-			birthYear: _pet.birthYear,
-			likes: _pet.likes,
-			packs: _pet.packs,
-			awards: _pet.awards,
-			desc: _pet.desc
-		}},
-		new: true
-	}, function(err, doc){
-		console.log("updated %o", doc);
-		res.json(doc);
+	Pets.updatePet(_pet).then(function(pet){
+		console.log("Updated %o", pet);
+		res.json(pet);
 	});
+
 });
 
 app.get("/api/breeds", function(req, res){
-	console.log("GET req %o", req.query.sp);
-	db.breeds.find({sp:req.query.sp}, {_id:0, desc:1},function(err, breeds){
+	
+	var species = req.query.sp;
+	console.log("GET req %o", species);
+	Breeds.findBreedsBySpecies(species).then(function(breeds){
 		console.log("breeds found: ", breeds)	
 		res.json(breeds);
 
@@ -91,29 +70,45 @@ app.get("/api/breeds", function(req, res){
 
 app.get("/api/species", function(req, res){
 	console.log("received a get request for species");
-	db.species.find({}, {_id:0, desc:1},function(err, species){
+	Species.findSpecies().then(function(species){
 		console.log("species found: ", species)	
 		res.json(species);
-
 	});
 });
 
 
-//Handles www.mydomain.com/api/users/myemail@somemail.com?password=123
+//EndPoint: cupidog.com/api/users/myemail@somemail.com?password=123
 app.get('/api/users/:email',
 	//passport.authenticate('basic', { session: false }),
 	function(req, res) {
-		db.users.findOne({ email: req.params.email, password: req.query.password }, function(err, user){
+
+		var email = req.params.email;
+		var psswd = req.query.password;
+
+		Users.authenticate( email, psswd ).then(function(user){
 			if(user){
-				console.log("Authentication successful for " + req.params.email + ":" + req.query.password);
+				console.log("Authentication successful for " + email + ":" + psswd);
 			}
 			else{
-				console.log("Authentication failed for " + req.params.email + ":" + req.query.password);
+				console.log("Authentication failed for " + email + ":" + psswd);
 			}
 			res.json(user);
 			//res.redirect('/users/' + req.user.username);
 		});
 });
+
+
+app.get('/auth/facebook',
+	passport.authenticate('facebook',
+	{ scope: ['public_profile', 'email', 'read_stream', 'publish_actions'] }
+));
+
+app.get('/auth/facebook/callback',
+	passport.authenticate('facebook', {
+		successRedirect: '/main/home',
+		failureRedirect: '/login'
+	})
+);
 
 
 app.listen(3000)
