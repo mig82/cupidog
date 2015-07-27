@@ -1,94 +1,76 @@
-<div data-ng-controller="AddPetCtrl" class="container-fluid">
-	<div class="panel panel-default std-panel">
-		
-		<div class="panel-heading std-panel-head">Tell us about your new pet</div>
-		<div class="panel-body">
+<div class="panel panel-default std-panel" data-ng-controller="AddPetCtrl">
+	
+	<div class="panel-heading std-panel-head">Tell us about your new pet</div>
+	<div class="panel-body">
 
-			<form class="form-horizontal" data-ng-submit="addPet()" name="newPetForm">
-				<div class="form-group">
-					<label class="col-xs-4 control-label required-field">Name</label>
-					<div class="col-xs-8">
-						<input class="my-form-control" type="text" placeholder="Your pet's name" data-ng-model="pet.name" required ng-class="pet.name?'text-capitalize':''">
-					</div>
+		<form class="form-horizontal" data-ng-submit="addPet()" name="newPetForm">
+			<div class="form-group">
+				<label class="col-xs-4 control-label required-field">Name</label>
+				<div class="col-xs-8">
+					<input class="my-form-control" type="text" placeholder="Your pet's name" data-ng-model="pet.name" required ng-class="pet.name?'text-capitalize':''">
 				</div>
-				
-				<div class="form-group">
-					<label class="col-xs-4 control-label required-field">Species</label>
-					<div class="col-xs-8 type-ahead-container">
-						<input type="text" data-ng-model="pet.sp" class="hiddeninput" data-ng-required="true">
-						<span data-ng-show="pet.sp" class="readonly-field col-xs-8 text-capitalize" data-ng-click="blankSpecies()">{{pet.sp}}</span>
-						<input	data-ng-show="!pet.sp" class="my-form-control" type="text" data-ng-model="spSearch" data-ng-blur="resetSpeciesSearch()"
-								data-ng-required="!pet.sp"
-								placeholder="Dog, cat, ferret, hamster, turtle, bird, unicorn?" >
-						<ul data-ng-show="spSearch" class="list-group type-ahead-results">
-							<li data-ng-repeat="sp in species | filter:spSearch" class="list-group-item" ng-click="setSpecies(sp.desc)"><span class="text-capitalize">{{sp.desc}}</span></li>
-						</ul>
-					</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-xs-2 control-label required-field">Species</label>
+				<div class="col-xs-10">
+					<typeahead model="pet.sp" required="true" options="species" placeholder="'Dog, cat, ferret, hamster, turtle, bird, unicorn?'"
+						opt-search="'desc'"
+						opt-value="'desc'"
+						opt-label="'desc'"
+					>
 				</div>
+			</div>
 
-				<div class="form-group">
-					<label class="col-xs-4 control-label">Breed</label>
-					<div class="col-xs-8">
-						<input class="hiddeninput" type="text" data-ng-model="pet.breed" >
-						<span data-ng-show="pet.breed" class="readonly-field text-capitalize" data-ng-click="blankBreed()">{{pet.breed}}</span>
-						<input	data-ng-show="!pet.breed" class="my-form-control" type="text" data-ng-model="breedSearch" data-ng-blur="resetBreedSearch()"
-								placeholder="{{pet.sp? 'What kind of ' + pet.sp +  ' is ' + (pet.name?pet.name:'your pet?'):''}}">
-						<ul data-ng-show="breedSearch" class="list-group type-ahead-results">
-							<li data-ng-repeat="b in breeds | filter:breedSearch" class="list-group-item" ng-click="setBreed(b.desc)"><span class="text-capitalize">{{b.desc}}</span></li>
-						</ul>
-					</div>
+			<div class="form-group">
+				<label class="col-xs-2 control-label">Breed</label>
+				<div class="col-xs-10">
+					<typeahead model="pet.breed" required="false" options="breeds" placeholder="'What breed am I?'"
+						opt-search="'desc'"
+						opt-value="'desc'"
+						opt-label="'desc'"
+					>
 				</div>
+			</div>
 
-				<div class="form-group">
-					<label class="col-xs-4 control-label required-field">Gender</label>
-					<div class="col-xs-8">
-						<input type="text" class="hiddeninput" data-ng-model="pet.gender" required >
-						<span class="readonly-field" ng-click="toggleOptions(true)" >{{genders[pet.gender]}}&nbsp;</span>
-						<ul data-ng-show="genderFocus" class="list-group type-ahead-results">
-							<li class="list-group-item" ng-repeat="(k,v) in genders" ng-click="setGender(k)"><span>{{v}}</span></li>
-						</ul>
-					</div>
+			<div class="form-group">
+				<label class="col-xs-2 control-label required-field">Gender</label>
+				<div class="col-xs-10">
+					<combo model="pet.gender" required="true" options="genders">
 				</div>
+			</div>
 
-				<div class="form-group">
-					<label class="col-xs-4 control-label">Date of Birth</label>
-					<div class="col-xs-8">
-						<input class="my-form-control" type="text" placeholder="E.g. 12 Feb 2014" data-ng-model="pet.birth" bs-datepicker data-date-format="dd MMM yyyy" data-autoclose="true">
-					</div>
+			<div class="form-group">
+				<label class="col-xs-4 control-label">Date of Birth</label>
+				<div class="col-xs-8">
+					<input class="my-form-control" type="text" placeholder="E.g. 12 Feb 2014" data-ng-model="pet.birth" bs-datepicker data-date-format="dd MMM yyyy" data-autoclose="true">
 				</div>
+			</div>
 
-				<div class="form-group">
-					<label class="col-xs-4 control-label">Description</label>
-					<div class="col-xs-8">
-						<textarea class="my-form-control" placeholder="{{pet.name?'Tell us a little about '+pet.name:'Tell us a little about your pet'}}" data-ng-model="pet.desc" ng-maxlength="200"></textarea>
-					</div>
+			<div class="form-group">
+				<label class="col-xs-4 control-label">Description</label>
+				<div class="col-xs-8">
+					<textarea class="my-form-control" data-ng-model="pet.desc" ng-maxlength="200"
+						placeholder="{{pet.name?'Tell us a little about '+pet.name:'Tell us a little about your pet'}}"></textarea>
 				</div>
+			</div>
 
-				<div class="form-group">
-					<label class="col-xs-4 control-label required-field">Location</label>
-					<div class="col-xs-8">
-						<input id="petLoc" name="petLoc" class="my-form-control" type="text" data-ng-model="pet.loc.addr" gmaps-places-autoc required
-						placeholder="{{pet.name?'What\'s '+pet.name+'\'s home town?':'What\'s your pet\'s home town?'}}">
-					</div>
-					<!--small class="col-xs-2" data-ng-show="newPetForm.petLoc.$dirty && newPetForm.petLoc.$error">required</small-->
+			<div class="form-group">
+				<label class="col-xs-4 control-label required-field">Location</label>
+				<div class="col-xs-8">
+					<input id="petLoc" name="petLoc" class="my-form-control" type="text" data-ng-model="pet.loc.addr" gmaps-places-autoc required
+					placeholder="{{pet.name?'What\'s '+pet.name+'\'s home town?':'What\'s your pet\'s home town?'}}">
 				</div>
-				<!--div data-ng-show="pet.loc.addr">
-					<div class="col-xs-12">
-						<iframe width="100%" height="300" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?
-						q=madrid&
-						zoom=13&
-						key=AIzaSyBqNwJjGnmVqHMrBpMsUl7lHutzp7gqIoc"></iframe>
-					</div>
-				</div-->
+				<!--small class="col-xs-2" data-ng-show="newPetForm.petLoc.$dirty && newPetForm.petLoc.$error">required</small-->
+			</div>
 
-				<div class="form-group">
-					<div class="col-xs-12">
-						<button type="submit" class="btn btn-add pull-right" ><span class="glyphicon glyphicon-plus"></span></button>
-					</div>
+			<div class="form-group">
+				<div class="col-xs-12">
+					<button type="submit" class="btn floating-btn pull-right" ><span class="glyphicon glyphicon-plus"></span></button>
 				</div>
-			</form>
-
-		</div>
+			</div>
+		</form>
 
 	</div>
+
 </div>

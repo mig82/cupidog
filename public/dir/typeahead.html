@@ -1,0 +1,20 @@
+<div class="type-ahead-container">
+	<input type="text" class="hiddeninput" data-ng-model="model" data-ng-required="required">
+
+	<span data-ng-show="model" class="readonly-field col-xs-8 text-capitalize" data-ng-click="focus()">{{model}}</span>
+
+	<input	data-ng-show="!model" class="my-form-control" type="text"
+			data-ng-model="searchQuery"
+			data-ng-blur="blur()"
+			data-ng-required="!model"
+			placeholder="{{placeholder}}"
+	>
+
+	<ul ng-animate="'animate'" data-ng-show="searchQuery" class="list-group type-ahead-results">
+		<li ng-animate="'animate'"
+			data-ng-repeat="opt in options | filter:searchQuery"
+			class="list-group-item" ng-click="setValue(opt.desc)">
+			<span class="text-capitalize">{{opt[optLabel]}}</span>
+		</li>
+	</ul>
+</div>

@@ -1,0 +1,9 @@
+<div class="type-ahead-container">
+	<input type="text" class="hiddeninput" data-ng-model="model" required="required" >
+	
+	<span class="readonly-field" data-ng-click="toggleOptions(true)" >{{ options[model]?options[model]:"&nbsp;" }}</span>
+	
+	<ul data-ng-show="focus" class="list-group type-ahead-results">
+		<li class="list-group-item" ng-repeat="(key,label) in options" ng-click="setValue(key)"><span>{{label}}</span></li>
+	</ul>
+</div>

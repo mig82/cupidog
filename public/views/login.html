@@ -1,0 +1,26 @@
+<div data-ng-controller="LoginCtrl">
+	<div id="li-form-container">
+		<div class="container">
+			<h1 class="text-center li-head">CupiDog</h1>
+			<h2 class="text-center li-head">For pets that love people</h2>
+			<div class="li-form-subcontainer">
+
+				<form name="liForm" data-ng-submit="login()">
+					<input type="text" id="usr" name="psw" class="li-input" placeholder="email" required data-ng-model="email">
+					<input type="password" id="psw" name="psw" class="li-input" placeholder="password" required data-ng-model="password">
+					<button id="li-btn" name="li-btn" class="btn-block">Go!</button>
+				</form>
+
+				<!--Facebook Like-->
+				<div
+					class="fb-like"
+					data-share="true"
+					data-width="450"
+					data-show-faces="true">
+				</div>
+
+			</div>
+		</div>
+	</div>
+	
+</div>

@@ -20,6 +20,7 @@
 	/*background-image: linear-gradient(to bottom, #FFFFFF 0, #00C2C2 100%);*/
 	background-color: #FFF;
 	@include box-shadow-helper(2);
+	margin-bottom: 0px;
 }
 
 .nav-ico{
@@ -38,5 +39,5 @@ a.topbar-nav:hover,
 a.topbar-nav:focus,
 a.topbar-nav:active{
 	@extend a.topbar-nav;
-	border-bottom: 4px solid #60D9AE;
+	border-bottom: 4px solid $cyan-color;
 }

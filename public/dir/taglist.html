@@ -1,0 +1,16 @@
+<div class="container-fluid">
+	<div class="row profile-row">
+		<div class="col-xs-10">
+			<input type="text" data-ng-model="newTag" placeholder="{{placeholder}}">
+		</div>
+		<div class="col-xs-2">
+			<button class="flat-btn" data-ng-click="addTag()">Add</button>
+		</div>
+		
+	</div>
+	<div class="row profile-row" data-ng-show="tags">
+		<ul class="list-inline tags-container col-xs-12">
+			<li class="std-tag" ng-repeat="tag in tags track by $index">{{tag}} <a class="delete" data-ng-click="removeTag(tag)">&times;</a></span>
+		</ul>
+	</div>
+</div>

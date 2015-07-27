@@ -1,4 +1,4 @@
-<nav class="navbar topbar">
+<nav class="navbar topbar" data-ng-controller="UserCtrl">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -8,17 +8,17 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand cupidog-brand" href="#">
-        <img src="img/logo_1_transp.png">
+      <a class="navbar-brand cupidog-brand" ui-sref="about">
+        <img src="img/logo_2_transp.png">
       </a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a class="topbar-nav active" href="#home">Home</a></li>
-        <li><a class="topbar-nav" href="#pets">My Pets</a></li>
-        <li><a class="topbar-nav" href="#addpet">New Pet</a></li>
+        <li><a class="topbar-nav active" ui-sref="main.home">Home</a></li>
+        <li><a class="topbar-nav" ui-sref="main.pets">My Pets</a></li>
+        <li><a class="topbar-nav" ui-sref="main.addpet">New Pet</a></li>
 
       </ul>
       <form class="navbar-form navbar-left" role="search">
@@ -28,7 +28,7 @@
         <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
       </form>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Link</a></li>
+        <li><a href="#">{{user.name}}</a></li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Language <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">

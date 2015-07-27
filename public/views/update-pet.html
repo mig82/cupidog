@@ -1,0 +1,112 @@
+<div class="panel panel-default std-panel">
+	<div class="panel-heading std-panel-head">{{pet.name}}</div>
+	<div class="panel-body">
+		
+		<form class="form-horizontal">
+
+			<div class="form-group">
+				<label class="col-xs-2 control-label required-field">Name</label>
+				<div class="col-xs-10">
+					<input class="my-form-control" type="text" placeholder="Your pet's name" data-ng-model="pet.name" required ng-class="pet.name?'text-capitalize':''">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-xs-2 control-label required-field">Species</label>
+				<div class="col-xs-10">
+					<typeahead model="pet.sp" required="true" options="species" placeholder="'Dog, cat, ferret, hamster, turtle, bird, unicorn?'"
+						opt-search="'desc'"
+						opt-value="'desc'"
+						opt-label="'desc'"
+					>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-xs-2 control-label">Breed</label>
+				<div class="col-xs-10">
+					<typeahead model="pet.breed" required="false" options="breeds" placeholder="'What breed am I?'"
+						opt-search="'desc'"
+						opt-value="'desc'"
+						opt-label="'desc'"
+					>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-xs-2 control-label required-field">Gender</label>
+				<div class="col-xs-10">
+					<combo model="pet.gender" required="true" options="genders">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-xs-2 control-label required-field">Location</label>
+				<div class="col-xs-10">
+					<input id="petLoc" name="petLoc" class="my-form-control" type="text" data-ng-model="pet.loc.addr" gmaps-places-autoc required
+					placeholder="{{pet.name?'What\'s '+pet.name+'\'s home town?':'What\'s your pet\'s home town?'}}">
+				</div>
+				<!--small class="col-xs-2" data-ng-show="newPetForm.petLoc.$dirty && newPetForm.petLoc.$error">required</small-->
+			</div>
+
+			<div class="form-group" data-ng-show="knowsBirthDate" ng-animate=" 'animate' ">
+				<label class="col-xs-2 control-label">Date of Birth</label>
+				<div class="col-xs-7">
+					<input class="my-form-control" type="text" placeholder="E.g. 12 Feb 2014" data-ng-model="pet.birthDate" bs-datepicker data-date-format="dd MMM yyyy" data-autoclose="true">
+				</div>
+				<div class="col-xs-3"><a class="flat-btn" data-ng-click="toggleBirthOpt()"><small>Just the year?</small></a></div>
+			</div>
+
+			<div class="form-group" data-ng-show="!knowsBirthDate" ng-animate=" 'animate' ">
+				<label class="col-xs-2 control-label">Year of Birth</label>
+				<div class="col-xs-7">
+					<select data-ng-model="pet.birthYear">
+						<option data-ng-repeat="year in birthYearOpts" value="{{year}}">{{year}}</option>
+					</select>
+				</div>
+				<div class="col-xs-3"><a class="flat-btn" data-ng-click="toggleBirthOpt()"><small>Know the exact date?</small></a></div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-xs-2 control-label">I like</label>
+				<div class="col-xs-10">
+					<taglist tags="pet.likes" placeholder="'Play catch, pee in the house, chew on shoes?'"><!--TODO: define a placeholder suggestion per species-->
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-xs-2 control-label">My Packs</label>
+				<div class="col-xs-10">
+					<taglist tags="pet.packs" placeholder="'Other pets I run with?'"><!--TODO: define a placeholder suggestion per species-->
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-xs-2 control-label">My Awards</label>
+				<div class="col-xs-10">
+					<taglist tags="pet.awards" placeholder="'Cuttest pup in the neighborhood 2014?'"><!--TODO: define a placeholder suggestion per species-->
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-xs-2 control-label">Description</label>
+				<div class="col-xs-10">
+					<textarea class="my-form-control" data-ng-model="pet.desc" ng-maxlength="200"
+						placeholder="{{pet.name?'Tell us a little about '+pet.name:'Tell us a little about your pet'}}"></textarea>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-xs-2 col-xs-offset-8">
+					<button class="raised-btn pull-right" data-ng-click="cancel()">cancel</button>
+				</div>
+				<div class="col-xs-2">
+					<button class="raised-btn pull-right" data-ng-click="save()">save</button>
+				</div>
+			
+			</div>
+
+		</form>
+
+	</div>
+</div>

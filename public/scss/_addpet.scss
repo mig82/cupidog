@@ -4,17 +4,3 @@
 	z-index: -100;
 }
 
-.btn-add{
-	@include border-radius(100%);
-	@include box-shadow-helper(2);
-	width: 3em;
-	height: 3em;
-	background-color: #FF0075;
-	color: #fff;
-	text-align: center;
-
-	&:hover {
-        background-color: #DE00FF;
-        color: #fff !important;
-    }
-}
