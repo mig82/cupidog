@@ -100,7 +100,7 @@ app.get('/api/users/:email',
 
 app.get('/auth/facebook',
 	passport.authenticate('facebook',
-	{ scope: ['public_profile', 'email', 'read_stream', 'publish_actions'] }
+	{ scope: ['public_profile', 'email', 'publish_actions'] }
 ));
 
 app.get('/auth/facebook/callback',
