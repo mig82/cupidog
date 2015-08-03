@@ -1,18 +1,25 @@
 "use strict";
-angular.module('cupidog').controller('PetsCtrl', ['$scope', '$http', '$state', 'SessionSrv', function($scope, $http, $state, SessionSrv){
+angular.module('cupidog').controller('PetsCtrl', ['$scope', 'SessionSrv', 'NavigationSrv', function($scope, SessionSrv, NavigationSrv){
 
-	$scope.user = SessionSrv.getUser();
-
-	if($scope.user){
-		$http.get("/api/pets?user=" + $scope.user._id).success(function(res){
-			$scope.user.pets = res;
-		});
-	}
+	SessionSrv.getUser().then(function(user){
+		$scope.user = user;
+		return user;
+	}).then(function(user){
+		if(user){
+			SessionSrv.getPets(user).then(function(pets){
+				$scope.pets = pets;
+			})
+		}
+	});
 
 	$scope.gotoUpdate = function(pet){
-		console.log("go to update pet %o", pet);
 		SessionSrv.setPet(pet);
-		$state.go('main.updatePet');
+		NavigationSrv.gotoUpdatePet();
+	}
+
+	$scope.gotoCreatePet = function(){
+		SessionSrv.setPet('');
+		NavigationSrv.gotoCreatePet();
 	}
 }]);
 

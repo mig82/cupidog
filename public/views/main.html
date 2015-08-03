@@ -1,13 +1,15 @@
-<div data-ng-include="'includes/top-navbar.html'"></div>
+<div data-ng-controller="MainCtrl">
+	<div data-ng-include="'includes/top-navbar.html'"></div>
 
-<div class="container">
-	<div class="row">
-				
-		<aside id="leftSection" class="col-md-2 hidden-xs hidden-sm left-sect" data-ng-include="'includes/user-info.html'"></aside>
-		<div   id="centerSection" class="col-md-7 center-sect" data-ui-view>
-			Loading...
+	<div class="container">
+		<div class="row">
+					
+			<aside id="leftSection" class="col-md-2 hidden-xs hidden-sm left-sect" data-ng-include="'includes/user-info.html'"></aside>
+			<div   id="centerSection" class="col-md-7 center-sect" data-ui-view>
+				Loading...
+			</div>
+			<aside id="rightSection" class="col-md-2 hidden-xs hidden-sm right-sect" >Ads go here</aside>
+
 		</div>
-		<aside id="rightSection" class="col-md-2 hidden-xs hidden-sm right-sect" >Ads go here</aside>
-
 	</div>
 </div>

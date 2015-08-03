@@ -1,5 +1,7 @@
 "use strict";
-angular.module('cupidog').controller('UpdatePetCtrl', ['$scope', '$http', '$state', 'SessionSrv', 'CommonsSrv', function($scope, $http, $state, SessionSrv, CommonsSrv){
+angular.module('cupidog').controller('UpdatePetCtrl', ['$scope', 'SessionSrv', 'CommonsSrv', 'NavigationSrv', function($scope, SessionSrv, CommonsSrv, NavigationSrv){
+
+	$scope.updating = NavigationSrv.getMode() === NavigationSrv.MODE_UPDATE;
 
 	$scope.$watch(SessionSrv.getPet() , function(newValue, oldValue){
 		$scope.pet = SessionSrv.getPet();
@@ -7,32 +9,30 @@ angular.module('cupidog').controller('UpdatePetCtrl', ['$scope', '$http', '$stat
 	$scope.pet = SessionSrv.getPet();
 
 	/*Define how to get the species options and get them right away.*/
-	$scope.getSpecies = function(){
-		$http.get("/api/species").success(function(res){
-			$scope.species = res;
-		});
-	};
-	$scope.getSpecies();
+	SessionSrv.getSpecies().then(function(species){
+		$scope.species = species;
+	});
 
-	/*Define how to get the breed options and get them right away if a species is already selected.*/
-	$scope.getBreeds = function(){
-		$http.get("/api/breeds?sp=" + $scope.pet.sp).success(function(res){
-			$scope.breeds = res;
-		});
-	};
-	if($scope.pet && $scope.pet.sp){
-		$scope.getBreeds();
+	/*Define a function to watch $scope.pet.sp without getting a null pointer when $scope.pet is undefined*/
+	function watchSpeciesChange(){
+		return $scope.pet?$scope.pet.sp:$scope.pet; 
 	}
 
+	/*Define how to get the breed options and get them right away.*/
+	function refreshBreeds(){
+		SessionSrv.getBreeds( watchSpeciesChange() ).then(function(breeds){
+			$scope.breeds = breeds;
+		});
+	}
+	refreshBreeds();
+
 	/*Get the breed options whenever the species changes to a valid value other than the already selected one.*/
-	$scope.$watch( function(){
-		return $scope.pet?$scope.pet.sp:$scope.pet; 
-	}, function(newValue, oldValue){
+	$scope.$watch( watchSpeciesChange , function(newValue, oldValue){
 		
 		if($scope.pet && $scope.pet.sp){
 			if(newValue != oldValue){
 				$scope.pet.breed = "";
-				$scope.getBreeds();
+				refreshBreeds();
 			}
 		}
 		else{
@@ -42,8 +42,11 @@ angular.module('cupidog').controller('UpdatePetCtrl', ['$scope', '$http', '$stat
 
 	/*Define the gender options*/
 	$scope.genders = CommonsSrv.genders;
+
+	/*Define the year of birth options*/
 	$scope.birthYearOpts = CommonsSrv.getYearOpts();
 
+	/*Define how to switch between saving a birth date or just a birth year*/
 	$scope.knowsBirthDate = true;
 	$scope.toggleBirthOpt = function(){
 		$scope.knowsBirthDate = !$scope.knowsBirthDate;
@@ -55,26 +58,37 @@ angular.module('cupidog').controller('UpdatePetCtrl', ['$scope', '$http', '$stat
 		}
 	};
 
-	$scope.save = function(){
-
-		console.log("Save changes to %o", $scope.pet);
-
-		$http.put("/api/pets/" + $scope.pet._id, $scope.pet).success(function(res){
-			SessionSrv.setPet(res);
+	function create(){
+		return SessionSrv.createPet($scope.pet).then(function(pet){
+			$scope.pet = pet;
 		});
+	}
+
+	function update(){
+		return SessionSrv.updatePet($scope.pet).then(function(pet){
+			$scope.pet = pet;
+		});
+	}
+
+	$scope.save = function(){
+		if($scope.updating){
+			update().then(
+			NavigationSrv.gotoListUserPets());
+		}
+		else{
+			create().then(
+			NavigationSrv.gotoListUserPets());
+		}
 	};
 
 	$scope.saveLikes = function(){
-
-		console.log("Save likes to %o", $scope.pet);
-
-		$http.put("/api/pets/" + $scope.pet._id + "/likes", $scope.pet.likes).success(function(res){
-			SessionSrv.setPet(res);
+		SessionSrv.savePetLikes($scope.pet._id, $scope.pet.likes).then(function(pet){
+			$scope.pet = pet;
 		});
 	};
 
 	$scope.cancel = function(){
-		$state.go('main.pets');
+		NavigationSrv.gotoListUserPets();
 	}
 }]);
 

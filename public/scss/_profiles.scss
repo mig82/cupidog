@@ -11,6 +11,11 @@
 	blockquote{
 		font-size: 1em;
 	}
+
+	a.pet-prof-link{
+		color: inherit !important;
+		cursor: pointer;
+	}
 }
 
 .sp-ico{
@@ -80,7 +85,13 @@
 div.profile-pic{
 	max-height: 100px;
 	max-width: 100px;
-	margin: 15px;
+	margin-bottom: 15px;
+	position: relative;
+
+	img{
+		position: absolute;
+		top: -40px;
+	}
 }
 
 @media (min-width: 992px){

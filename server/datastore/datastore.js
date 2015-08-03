@@ -1,7 +1,10 @@
 "use strict";
 
 var mongojs = require('mongojs');
+
 var Q = require('q');
+Q.longStackSupport = true;
+
 var db = mongojs('cupidog', ['users', 'pets', 'species', 'breeds']);
 
 exports.Pets = {
@@ -23,6 +26,8 @@ exports.Pets = {
 	createPetForUser: function(newPet){
 		var deferred = Q.defer();
 		newPet._user = mongojs.ObjectId(newPet._user);
+		newPet.created = new Date();
+		newPet.lastUpdate = newPet.created;
 
 		db.pets.insert(newPet, function(error, pet){
 			if (error) {
@@ -37,12 +42,14 @@ exports.Pets = {
 
 	updatePet: function(updPet){
 		var deferred = Q.defer();
+		var lastUpdate = new Date();
 
 		db.pets.findAndModify({
 			query: {_id: mongojs.ObjectId(updPet._id) },
 			update: {$set: {
 				name: updPet.name,
 				sp: updPet.sp,
+				spIco: updPet.spIco,
 				breed: updPet.breed,
 				gender: updPet.gender,
 				loc: updPet.loc,
@@ -51,7 +58,8 @@ exports.Pets = {
 				likes: updPet.likes,
 				packs: updPet.packs,
 				awards: updPet.awards,
-				desc: updPet.desc
+				desc: updPet.desc,
+				lastUpdate: lastUpdate
 			}},
 			new: true
 		}, function(error, pet){
@@ -113,10 +121,18 @@ exports.Users = {
 		return deferred.promise;
 	},
 
-	findOrCreate: function(profile){
+	findById: function(userId){
+		return this.findOne({ _id: userId });
+	},
+
+	findByToken: function(token){
+		return this.findOne({access_token: token});
+	},
+
+	findOne: function(query){
 		var deferred = Q.defer();
 
-		db.users.findOne({ _id: profile.id }, function(error, user){
+		db.users.findOne(query, function(error, user){
 			if (error) {
 				deferred.reject(new Error(error));
 			}
@@ -125,5 +141,72 @@ exports.Users = {
 			}
 		});
 		return deferred.promise;
+	},
+
+	findOrCreate: function(newUser){ //With promises
+		var deferred = Q.defer();
+		var query = {
+			provider: newUser.provider,
+			provider_id: newUser.provider_id
+		};
+		var lastLogIn = new Date();
+
+		db.users.findAndModify({
+			query: query,
+			update: {$set: {
+				lastLogIn: lastLogIn,
+				provider: newUser.provider,
+				provider_id: newUser.provider_id,
+				name: newUser.name,
+				givenName: newUser.givenName,
+				familyName: newUser.familyName,
+				displayName: newUser.displayName,
+				email: newUser.email,
+				username: newUser.username,
+				access_token: newUser.access_token
+			}},
+			new: true,
+			upsert: true
+		}, function(error, doc, lastErrorObject){
+			if (error) {
+				deferred.reject(new Error(error));
+			}
+			else {
+				deferred.resolve(doc);
+			}
+		});
+		return deferred.promise;
+	},
+
+	_findOrCreate: function(newUser, done){ //With callback
+		
+		var query = {
+			provider: newUser.provider,
+			provider_id: newUser.provider_id
+		};
+		var lastLogIn = new Date();
+
+		db.users.findAndModify({
+			query: query,
+			update: {$set: {
+				lastLogIn: lastLogIn,
+				provider: newUser.provider,
+				provider_id: newUser.provider_id,
+				name: newUser.name,
+				givenName: newUser.givenName,
+				familyName: newUser.familyName,
+				displayName: newUser.displayName,
+				email: newUser.email,
+				username: newUser.username,
+				access_token: newUser.access_token
+			}},
+			new: true,
+			upsert: true
+		}, function(error, user, lastErrorObject){
+			if (error) { return done(error); }
+			else {
+                return done(null, user);
+            }
+		});
 	},
 };

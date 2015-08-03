@@ -6,7 +6,7 @@
 	<input	data-ng-show="!model" class="my-form-control" type="text"
 			data-ng-model="searchQuery"
 			data-ng-blur="blur()"
-			data-ng-required="!model"
+			data-ng-required="required && !model"
 			placeholder="{{placeholder}}"
 	>
 

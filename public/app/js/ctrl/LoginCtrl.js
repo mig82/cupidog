@@ -6,12 +6,10 @@ angular.module('cupidog').controller('LoginCtrl', ['$scope', '$http', '$state', 
 
 		console.log("Requesting authentication...");
 
-		$http.get("/api/users/" + $scope.email + "?password=" + $scope.password ).success(function(res){
+		SessionSrv.getUserByUserPassword().then(function(user){
 			
-			if(res){
-				console.log("Authentication accepted for %o", res);
-				//$scope.user = res;
-				SessionSrv.setUser(res);
+			if(user){
+				console.log("Authentication accepted for %o", user);
 				$state.go('main.home');
 			}
 			else{

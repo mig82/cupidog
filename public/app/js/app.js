@@ -6,7 +6,7 @@ var app = angular.module('cupidog', ['ngRoute', 'mgcrea.ngStrap', 'ui.router'])
 //.config(['$routeProvider', function($routeProvider) {
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
-	$urlRouterProvider.otherwise("/unknown");
+	//$urlRouterProvider.otherwise("/unknown");
 
 	// Now set up the states
 	$stateProvider
@@ -22,8 +22,12 @@ var app = angular.module('cupidog', ['ngRoute', 'mgcrea.ngStrap', 'ui.router'])
 	})
 
 	.state('main', {
-		url: "/main",
-		templateUrl: "views/main.html"
+		url: "/main?access_token",
+		templateUrl: "views/main.html",
+		controller: function($rootScope, $stateParams) {
+			console.log("0) Received access_token %o", $stateParams.access_token);
+			$rootScope.token = $stateParams.access_token;
+		}
 	})
 
 	.state('unknown', {
@@ -33,7 +37,7 @@ var app = angular.module('cupidog', ['ngRoute', 'mgcrea.ngStrap', 'ui.router'])
 
 	.state('main.home', {
 		url: "/home",
-		templateUrl: "views/home.html" 
+		templateUrl: "views/home.html"
 	})
 
 	.state('main.pets', {
@@ -43,7 +47,9 @@ var app = angular.module('cupidog', ['ngRoute', 'mgcrea.ngStrap', 'ui.router'])
 
 	.state('main.addpet', {
 		url: "/addpet",
-		templateUrl: "views/addpet.html" 
+		/*templateUrl: "views/addpet.html"*/
+		templateUrl: "views/update-pet.html",
+		controller: "UpdatePetCtrl"
 	})
 
 	.state('main.updatePet', {
@@ -55,9 +61,9 @@ var app = angular.module('cupidog', ['ngRoute', 'mgcrea.ngStrap', 'ui.router'])
 }])
 
 //.run(['$rootScope', '$location', 'SessionSrv', function ($rootScope, $location, SessionSrv) {
-.run(['$rootScope', '$state', '$urlRouter', 'SessionSrv', function ($rootScope, $state, $urlRouter, SessionSrv) {
+.run(['$rootScope', '$state', '$urlRouter', '$stateParams', 'SessionSrv', function ($rootScope, $state, $urlRouter, $stateParams, SessionSrv) {
 
-	var publicRoutes = ['/login', '/unauth', '/notfound'];
+	var publicRoutes = ['/login', '/unauth', '/notfound', '/main'];
 
 	// check if current location matches a public route  
 	var isPublic = function ( route ) {
@@ -69,33 +75,25 @@ var app = angular.module('cupidog', ['ngRoute', 'mgcrea.ngStrap', 'ui.router'])
 
 	//$rootScope.$on('$routeChangeStart', function (event, next, current) {
     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
-		
-		// Halt state change from even starting
-		//event.preventDefault();
-		
-		console.log("state transition to %o", toState);
+
+		//event.preventDefault(); // Halt state change from even starting
 
 		// if route requires auth and user is not logged in
-		if (!isPublic(toState.url) && !SessionSrv.isLoggedIn()) {
-		//if(false){ //IMPORTANT: For development only	
-			console.log("Can't access %o without login", toState.url);
-			//$location.path('/login'); // redirect back to login
-			$state.go('login');
-			//$urlRouter.sync();
+		if(!isPublic(toState.url)){
+			console.log("4) Need login");
+			SessionSrv.getUser().then(function(user){
+				console.log("5) user is %o", user);
+				if(!user){
+					console.log("6) Can't access %o without login", toState.url);
+					$state.go('login');
+				}
+			});
 		}
 		else{
-			$state.go(toState); // Continue with the update and state transition
+			$state.go(toState);
 		}
 
 	});
-
-	/*$rootScope.$on('$routeChangeStart', function (event, next, current) {
-		// if route requires auth and user is not logged in
-		if (!isPublic($location.url()) && !SessionSrv.isLoggedIn()) {
-			// redirect back to login
-			$location.path('/login');
-		}
-	});*/
 	
 	console.log('Starting CupiDog...');
 

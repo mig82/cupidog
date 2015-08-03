@@ -1,6 +1,5 @@
-angular.module('cupidog').controller('HomeCtrl', ['$scope', '$http', '$location', function($scope, $http, $location){
-
-	"use strict";
+"use strict";
+angular.module('cupidog').controller('HomeCtrl', ['$rootScope', '$scope', '$http', '$location', 'SessionSrv', function($rootScope, $scope, $http, $location, SessionSrv){
 
 	$scope.gotoSomewhere = function(){
 		$location.path('/test');

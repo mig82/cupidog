@@ -26,7 +26,7 @@ angular.module('cupidog').directive('typeahead', ['$filter', '$timeout', functio
 		// transclude: true,
 		// compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
 		link: function($scope, iElm, iAttrs, controller) {
-
+			
 			$scope.searchQuery = "";
 			$scope.temp = "";
 

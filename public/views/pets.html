@@ -1,61 +1,75 @@
 <div data-ng-controller="PetsCtrl">
 	<ul class="list-group pet-list">
-		<li class="list-group-item pet-list" data-ng-repeat="pet in user.pets">
+		<li class="list-group-item pet-list" data-ng-repeat="pet in pets">
 			<div class="panel panel-default profile-container" data-ng-class="pet.gender=='m'?'profile-male':'profile-female'"/>
-				<div class="panel-heading">
-					<span class="">{{pet.name}}</span>
-					<a class="pull-right" data-ng-click="gotoUpdate(pet)" ><img class="action-icon" src="img/icons/edit.svg"></a>
-				</div>
+				<div class="panel-heading">&nbsp;</div>
 				
 				<div class="panel-body container-fluid">
-					
+
 					<div class="row profile-row">
-
-						<div class="col-xs-12 col-md-3 profile-pic ">
-							<img class="img-responsive center-block img-thumbnail" ng-src="{{pet.profilePic}}">
-						</div>
-						
-						
-						<div class="col-xs-4 col-md-3">
-							<span class="sr-only">Species</span>
-							<div class="svg-sp-ico" title="{{pet.sp}}">
-								<svg  viewBox="0 0 489.751 489.751" class="sp-ico">
-									<use xlink:href="{{pet.spIco}}"></use>
-								</svg>
+						<div class="col-xs-3">
+							<div class="profile-pic">
+								<img class="img-responsive img-thumbnail" ng-src="{{pet.profilePic}}">
 							</div>
-							<span class="text-capitalize">{{pet.sp}}</span>
 						</div>
-
-						<div data-ng-show="pet.breed" class="col-xs-8 col-md-3 text-capitalize">
-							<span class="profile-label">Breed</span>
-							<span class="text-capitalize">{{pet.breed}}</span>
+						<div class="col-xs-11 col-xs-offset-3">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-xs-12">
+										<div class="svg-sp-ico" title="{{pet.sp}}">
+											<svg  viewBox="0 0 489.751 489.751" class="sp-ico">
+												<use xlink:href="{{pet.spIco}}"></use>
+											</svg>
+										</div>
+										<a class="pet-prof-link" data-ng-click="gotoUpdate(pet)" ><strong>{{pet.name | camelcase}}</strong></a>		
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-12">
+										<a href=""><small>@<span>{{pet.name}}</span></small></a>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-12">
+										<a href="" data-ng-show="pet.sp"><small>#<span>{{pet.sp | camelcase}}</span></small></a>
+										<a href="" data-ng-show="pet.breed"><small>#<span>{{pet.breed | camelcase}}</span></small></a>
+									</div>
+								</div>
+							</div>
 						</div>
+					</div>
 
-						<div class="col-xs-2 svg-sp-ico">
-							<span class="profile-label">I'm looking for</span>
+					<div class="row profile-row">
+						<span class="col-xs-12">&nbsp;</span>
+					</div>
+
+					<div class="row profile-row">
+						<span class="col-xs-4">I'm looking for</span>
+						<div class="col-xs-8">
 							<svg  viewBox="0 0 23.217 23.217" class="standard-ico">
 								<use data-ng-if="true" xlink:href="#heart-ico"></use>
 							</svg>
 						</div>
+					</div>
 
-						<div class="col-xs-12 col-md-3">
-							<span class="profile-label">Date of Birth</span>
-							{{pet.birth | date}}
-						</div>
-						
-						<div class="col-xs-12">
-							<span class="profile-label">I live in</span>
-							{{pet.loc.addr}}
-						</div>
+					<div class="row profile-row">
+						<span class="col-xs-4">Born</span>
+						<span class="col-xs-8">{{(pet.birthDate | date) || pet.birthYear}}</span>
+					</div>
 
+					<div class="row profile-row">
+						<span class="col-xs-2">I live in</span>
+						<span class="col-xs-10">{{pet.loc.addr}}</span>
+					</div>
+
+					<div class="row profile-row">
 						<div class="col-xs-12">
 							<blockquote>
 								<p>{{pet.desc}}</p>
 								<!--footer>Someone famous in <cite title="Source Title">Source Title</cite></footer-->
 							</blockquote>
 						</div>
-
-					</div><!--row-->
+					</div>
 
 					<div class="row profile-row">
 						<span class="col-xs-2">My awards</span>
@@ -83,5 +97,9 @@
 			</div>
 		</li>
 	</ul>
-	<div data-ng-show="!user.pets">It's lonely here. You have no pets yet</div>
+
+	<div data-ng-show="!pets">It's lonely here. You have no pets yet</div>
+
+	<button class="btn floating-btn pull-right" data-ng-click="gotoCreatePet()"><span class="glyphicon glyphicon-plus"></span></button>
+
 </div>

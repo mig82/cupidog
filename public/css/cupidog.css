@@ -10,6 +10,9 @@
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); }
   .profile-container blockquote, .profile-female blockquote, .profile-male blockquote {
     font-size: 1em; }
+  .profile-container a.pet-prof-link, .profile-female a.pet-prof-link, .profile-male a.pet-prof-link {
+    color: inherit !important;
+    cursor: pointer; }
 
 .sp-ico {
   fill: currentColor;
@@ -59,7 +62,11 @@
 div.profile-pic {
   max-height: 100px;
   max-width: 100px;
-  margin: 15px; }
+  margin-bottom: 15px;
+  position: relative; }
+  div.profile-pic img {
+    position: absolute;
+    top: -40px; }
 
 @media (min-width: 992px) {
   max-height: 200px;
@@ -212,14 +219,13 @@ input, select, textarea, span.readonly-field {
   transition: 0.5s linear all;
   background-color: #fff; }
 
-button {
+.qpid-btn, .floating-btn, .raised-btn, .flat-btn {
   -webkit-border-radius: 0 !important;
   -moz-border-radius: 0 !important;
   -ms-border-radius: 0 !important;
   border-radius: 0 !important;
   text-transform: uppercase;
-  font-weight: bold;
-  padding: 0.5em 2em; }
+  font-weight: bold; }
 
 .floating-btn {
   -webkit-border-radius: 100% !important;
@@ -240,7 +246,8 @@ button {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   background-color: #FF575C;
   border: none;
-  color: #fff; }
+  color: #fff;
+  padding: 0.5em 2em; }
 
 .flat-btn {
   background-color: #fff;

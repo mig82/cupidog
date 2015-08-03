@@ -11,7 +11,7 @@
 
 	</head>
 	<body>
-		<script>
+		<!--script>
 			window.fbAsyncInit = function() {
 				FB.init({
 					appId      : '1632816823668819',
@@ -27,12 +27,10 @@
 				js.src = "//connect.facebook.net/en_US/sdk.js";
 				fjs.parentNode.insertBefore(js, fjs);
 			}(document, 'script', 'facebook-jssdk'));
-		</script>
+		</script-->
 
 		<!--div data-ng-view></div-->
 		<div data-ui-view></div>
-
-		
 		
 		<div data-ng-include="'img/icons/sp-icons.svg'" style="display:none"></div>
 
@@ -50,18 +48,28 @@
 		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script><!--Need this for the top navbar to work-->
 		
 		<script src="app/js/app.js"></script>
-		<script src="app/js/ctrl/HomeCtrl.js"></script>
-		<script src="app/js/ctrl/PetsCtrl.js"></script>
-		<script src="app/js/ctrl/AddPetCtrl.js"></script>
-		<script src="app/js/ctrl/LoginCtrl.js"></script>
-		<script src="app/js/ctrl/UserCtrl.js"></script>
-		<script src="app/js/ctrl/UpdatePetCtrl.js"></script>
+
+
+		<script src="app/js/srv/RestCliSrv.js"></script>
 		<script src="app/js/srv/CommonsSrv.js"></script>
 		<script src="app/js/srv/SessionSrv.js"></script>
+		<script src="app/js/srv/NavigationSrv.js"></script>
+
 		<script src="app/js/util/ArrayIndexOf2.js"></script>
+		
 		<script src="app/js/dir/typeahead.js"></script>
 		<script src="app/js/dir/combo.js"></script>
 		<script src="app/js/dir/taglist.js"></script>
+
+		
+		<script src="app/js/ctrl/MainCtrl.js"></script>
+		<script src="app/js/ctrl/HomeCtrl.js"></script>
+		<script src="app/js/ctrl/PetsCtrl.js"></script>
+		<script src="app/js/ctrl/LoginCtrl.js"></script>
+		<script src="app/js/ctrl/UserCtrl.js"></script>
+		<script src="app/js/ctrl/UpdatePetCtrl.js"></script>
+
+		<script src="app/js/flt/CamelCaseFlt.js"></script>
 
 		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
 
