@@ -6,7 +6,7 @@ var app = angular.module('cupidog', ['ngRoute', 'mgcrea.ngStrap', 'ui.router'])
 //.config(['$routeProvider', function($routeProvider) {
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
-	//$urlRouterProvider.otherwise("/unknown");
+	$urlRouterProvider.otherwise("/login");
 
 	// Now set up the states
 	$stateProvider
@@ -63,7 +63,7 @@ var app = angular.module('cupidog', ['ngRoute', 'mgcrea.ngStrap', 'ui.router'])
 //.run(['$rootScope', '$location', 'SessionSrv', function ($rootScope, $location, SessionSrv) {
 .run(['$rootScope', '$state', '$urlRouter', '$stateParams', 'SessionSrv', function ($rootScope, $state, $urlRouter, $stateParams, SessionSrv) {
 
-	var publicRoutes = ['/login', '/unauth', '/notfound', '/main'];
+	var publicRoutes = ['/login', '/main'];
 
 	// check if current location matches a public route  
 	var isPublic = function ( route ) {
