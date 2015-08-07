@@ -1,5 +1,81 @@
 <div  data-ng-controller="HomeCtrl">
-	This is home.
-	<p>To-do: show news feed here!</p>
+	<ul class="qpidog-list">
+		<li class="qpidog-list-item" data-ng-repeat="n in newsfeed">
+
+			<div class="container-fluid">
+
+				<div class="row">	
+					<div class="col-xs-2">
+						<div class="_profile-pic">
+							<img class="img-responsive img-thumbnail" data-ng-src="img/icons/dog-ico.svg">
+						</div>
+					</div>
+
+					<div class="col-xs-10">
+						<div class="vert-padd-2">
+							<span>{{n}}</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">		
+					<div class="col-xs-12">
+						<div class="vert-padd-1">
+							Lorem ipsum yadaydadadada
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="post-img-container">
+							<img class="post-img" src="https://scontent-mad1-1.xx.fbcdn.net/hphotos-xpf1/v/l/t1.0-9/11828720_10155923769705427_2333410555775469705_n.jpg?oh=30ab334085d22196eeb9f9d9d68cceba&oe=56817F88">
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-xs-12">
+
+					<!--div class="container-fluid">
+						<div class="row">
+							<div class="col-xs-4">
+								
+							</div>
+							<div class="col-xs-4">
+								
+							</div>
+							<div class="col-xs-4">
+								
+							</div>
+						</div>
+					</div-->
+						
+
+
+						<div class="vert-padd-1">
+
+						
+							<div class="social-widgets-panel vert-padd-1">
+								<a class="social-widget">
+									<span class="social-widget-icon" data-ng-include="'img/icons/shakapaw4.svg'"></span>
+									<span>15</span>
+								</a>
+								<a class="social-widget">
+									<span class="social-widget-icon" data-ng-include="'img/icons/petcoin.svg'"  ></span>
+									<span>15</span>
+								</a>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+
+			
+		</li>
+	</ul>
 	
 </div>

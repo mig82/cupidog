@@ -1,0 +1,37 @@
+.qpid-btn{
+	@include border-radius(0);
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+.floating-btn{
+	@extend .qpid-btn; 
+	@include border-radius(100%);
+	@include box-shadow-helper(2);
+	width: 3em;
+	height: 3em;
+	background-color: $brick-red-color;
+	color: $white-color;
+	text-align: center;
+
+	&:hover {
+		background-color: #DE00FF;
+		color: #fff !important;
+	}
+}
+
+.raised-btn{
+	@extend .qpid-btn; 
+	@include box-shadow-helper(2);
+	background-color: $brick-red-color;
+	border: none;
+	color: $white-color;
+	padding: 0.5em 2em;
+}
+
+.flat-btn{
+	@extend .qpid-btn; 
+	background-color: $white-color;
+	border: none;
+	color: $cyan-color;
+}

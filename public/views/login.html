@@ -8,11 +8,14 @@
 				<form name="liForm" data-ng-submit="login()">
 					<input type="text" id="usr" name="psw" class="li-input" placeholder="email" required data-ng-model="email">
 					<input type="password" id="psw" name="psw" class="li-input" placeholder="password" required data-ng-model="password">
-					<button id="li-btn" name="li-btn" class="btn-block">Go!</button>
+					<button id="li-btn" name="li-btn" class="btn-block li-btn-qpidog">Go!</button>
 				</form>
 
-				<!--fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button-->
-				<a href="/auth/facebook">Login with Facebook</a>
+				<a href="/auth/facebook" class="btn-block li-btn-fb">Login with Facebook</a>
+
+				<a href="" class="btn-block li-btn-g">Login with Google (Coming soon)</a>
+
+				<a href="" class="btn-block li-btn-t">Login with Twitter (Coming soon)</a>
 
 				<!--Facebook Like-->
 				<div
