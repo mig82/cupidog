@@ -22,17 +22,27 @@ passport.use(new BasicStrategy(
 	}
 ));*/
 
-//-----OJO--------: Para AWS usar: http://ec2-52-28-118-238.eu-central-1.compute.amazonaws.com:3000
-//var APP_DOMAIN = "http://test.ec2-52-28-118-238.eu-central-1.compute.amazonaws.com:3000"; //https://www.cupidog.es
-var APP_DOMAIN = "http://localhost:3000"; //https://www.cupidog.es
-var FACEBOOK_APP_ID = '1632816823668819';
-var FACEBOOK_APP_SECRET = '36f1bba41f9fd569714519333c1a3870';
+/*******************************/
+/***** Production settings *****/
+/*******************************/
+//var APP_DOMAIN = "http://ec2-52-28-118-238.eu-central-1.compute.amazonaws.com:3000"; //https://www.cupidog.es
+//var FACEBOOK_APP_ID = '1632816823668819';
+//var FACEBOOK_APP_SECRET = '36f1bba41f9fd569714519333c1a3870';
+
+/*******************************/
+/***** Development settings ****/
+/*******************************/
+var APP_DOMAIN = "http://localhost:3000";
+var FACEBOOK_APP_ID = '1636117153338786';
+var FACEBOOK_APP_SECRET = 'a40b2c53643f53d28e0d9b9f584ffd9e';
+
 //var FACEBOOK_API_VERSION = 'v2.4';
 
 passport.use(new FacebookStrategy({
 		clientID: FACEBOOK_APP_ID,
 		clientSecret: FACEBOOK_APP_SECRET,
-		callbackURL: APP_DOMAIN + "/auth/facebook/callback"
+		callbackURL: APP_DOMAIN + "/auth/facebook/callback",
+		profileFields: ['id', 'emails', 'displayName']
 	},
 	function(accessToken, refreshToken, profile, done) {
 
