@@ -23,8 +23,8 @@ passport.use(new BasicStrategy(
 ));*/
 
 //-----OJO--------: Para AWS usar: http://ec2-52-28-118-238.eu-central-1.compute.amazonaws.com:3000
-//var APP_DOMAIN = "http://test.ec2-52-28-118-238.eu-central-1.compute.amazonaws.com:3000"; //https://www.cupidog.es
-var APP_DOMAIN = "http://localhost:3000"; //https://www.cupidog.es
+var APP_DOMAIN = "http://ec2-52-28-118-238.eu-central-1.compute.amazonaws.com:3000"; //https://www.cupidog.es
+//var APP_DOMAIN = "http://localhost:3000"; //https://www.cupidog.es
 var FACEBOOK_APP_ID = '1632816823668819';
 var FACEBOOK_APP_SECRET = '36f1bba41f9fd569714519333c1a3870';
 //var FACEBOOK_API_VERSION = 'v2.4';
