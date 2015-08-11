@@ -1,5 +1,84 @@
 <div  data-ng-controller="HomeCtrl">
-	This is home.
-	<p>To-do: show news feed here!</p>
+	<ul class="qpidog-list">
+		<li class="qpidog-list-item" data-ng-repeat="n in newsfeed">
+
+			<div class="container-fluid">
+
+				<div class="row">	
+					<div class="col-xs-2">
+						<div class="">
+							<img class="img-responsive img-thumbnail min-img" data-ng-src="img/icons/dog-ico.svg">
+						</div>
+					</div>
+
+					<div class="col-xs-10">
+						<div class="vert-padd-1">
+							<span>{{n.author}}</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">		
+					<div class="col-xs-12">
+						<div class="vert-padd-1">
+							{{n.text}}
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="post-img-container">
+							<img class="post-img" src="{{n.url}}">
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-xs-12">
+
+					<!--div class="container-fluid">
+						<div class="row">
+							<div class="col-xs-4">
+								
+							</div>
+							<div class="col-xs-4">
+								
+							</div>
+							<div class="col-xs-4">
+								
+							</div>
+						</div>
+					</div-->
+						
+
+
+						<div class="vert-padd-1">
+
+						
+							<div class="social-widgets-panel vert-padd-1">
+								<a class="social-widget">
+									<span class="social-widget-icon" data-ng-include="'img/icons/shakapaw1.svg'"></span>
+									<span>{{n.likes}}</span>
+								</a>
+								<a class="social-widget">
+									<span class="social-widget-icon" data-ng-include="'img/icons/share.svg'"></span>
+									<span>{{n.shares}}</span>
+								</a>
+								<a class="social-widget">
+									<span class="social-widget-icon" data-ng-include="'img/icons/petcoin.svg'"  ></span>
+								</a>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+
+			
+		</li>
+	</ul>
 	
 </div>

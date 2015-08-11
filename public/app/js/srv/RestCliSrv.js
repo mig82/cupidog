@@ -103,6 +103,30 @@ angular.module('cupidog').factory('RestCliSrv', ['$http', '$rootScope', function
 				return res.data 
 			});
 		},
+
+		getPosts: function(){
+			return $http.get( "/api/posts?access_token=" + this.getToken() ).success(function(res){
+				return res;
+			}).error(function(res, status){
+				console.error("REST Cli Error getPosts %s: %o", status, res);
+				return res;
+			}).then(function(res){
+				//This just separates the actual data from the http response object so that the logic layer can be protocol agnostic.
+				return res.data 
+			});
+		},
+
+		createPost: function(post){
+			return $http.post("/api/posts?access_token=" + this.getToken(), post).success(function(res){
+				return res;
+			}).error(function(res, status){
+				console.error("REST Cli Error createPost %s: %o", status, res);
+				return res;
+			}).then(function(res){
+				//This just separates the actual data from the http response object so that the logic layer can be protocol agnostic.
+				return res.data 
+			});
+		},
 	};
 }]);
 

@@ -1,9 +1,9 @@
 "use strict";
-angular.module('cupidog').controller('HomeCtrl', ['$rootScope', '$scope', '$http', '$location', 'SessionSrv', function($rootScope, $scope, $http, $location, SessionSrv){
+angular.module('cupidog').controller('HomeCtrl', ['$scope', 'SessionSrv', function($scope, SessionSrv){
 
-	$scope.gotoSomewhere = function(){
-		$location.path('/test');
-	};
+	SessionSrv.getPosts().then(function(posts){
+		$scope.newsfeed = posts;
+	});
 
 }]);
 
