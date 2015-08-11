@@ -1,5 +1,8 @@
 angular.module('cupidog').filter('camelcase', function() {
 	return function(text) {
+
+		if(!text) return '';
+
 		return text.replace(/\W+(.)/g, function (x, chr) {
 			return chr.toUpperCase();
 		});

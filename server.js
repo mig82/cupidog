@@ -28,6 +28,7 @@ var Pets = ds.Pets;
 var Breeds = ds.Breeds;
 var Species = ds.Species;
 var Users = ds.Users;
+var Posts = ds.Posts;
 
 
 // curl -v http://127.0.0.1:3000/?access_token=123456789
@@ -138,6 +139,40 @@ app.get('/api/users',
 		});
 	}
 );
+
+/*********************/
+/******* posts *******/
+/*********************/
+
+app.get("/api/posts",
+	passport.authenticate('bearer', { session: false }),
+	function(req, res){
+		console.log("GET req for posts");
+		
+		Posts.findPosts().then(function(posts){
+			console.log("posts found: ", posts)	
+			res.json(posts);
+		});
+	}
+);
+
+app.post("/api/posts",
+	passport.authenticate('bearer', { session: false }),
+	function(req, res){
+		console.log("POST req for posts");
+
+		var newPost = req.body;
+		console.log("POST req for pet %o", newPost);
+
+		Posts.createPost(newPost).then(function(post){
+			res.json(post);
+		});
+	}
+);
+
+/*********************/
+/******* login *******/
+/*********************/
 
 app.get('/auth/facebook', function(req, res, next){
 	

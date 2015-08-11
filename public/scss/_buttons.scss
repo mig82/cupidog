@@ -13,10 +13,12 @@
 	background-color: $brick-red-color;
 	color: $white-color;
 	text-align: center;
+	transition: all 200ms ease 0s;
 
 	&:hover {
-		background-color: #DE00FF;
+		background-color: red;
 		color: #fff !important;
+	    transform: scale(1.1);
 	}
 }
 

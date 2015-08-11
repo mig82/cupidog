@@ -149,6 +149,9 @@ a.topbar-nav:focus,
 a.topbar-nav:active {
   border-bottom: 4px solid #60D9AE; }
 
+.navbar-toggle .icon-bar {
+  background-color: #60D9AE; }
+
 .type-ahead-container {
   position: relative; }
 
@@ -286,10 +289,12 @@ input.ng-invalid-required.ng-dirty {
   height: 3em;
   background-color: #FF575C;
   color: #fff;
-  text-align: center; }
+  text-align: center;
+  transition: all 200ms ease 0s; }
   .floating-btn:hover {
-    background-color: #DE00FF;
-    color: #fff !important; }
+    background-color: red;
+    color: #fff !important;
+    transform: scale(1.1); }
 
 .raised-btn {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -373,7 +378,8 @@ ul.qpidog-list {
   -moz-border-radius: 0% !important;
   -ms-border-radius: 0% !important;
   border-radius: 0% !important;
-  margin-top: 0px; }
+  margin-top: 0px;
+  padding-left: 0px; }
   ul.qpidog-list li.qpidog-list-item {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     position: relative;
@@ -398,14 +404,23 @@ ul.qpidog-list {
 .social-widgets-panel {
   background-color: #60D9AE;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  padding: 1em; }
+  padding: 1em;
+  color: #009E66; }
 
 .social-widget {
   padding-right: 1em;
-  cursor: pointer; }
+  cursor: pointer;
+  color: inherit; }
 
-.social-widget-icon svg {
-  max-height: 2.5em;
-  max-width: 2.5em; }
+.social-widget-icon {
+  color: inherit; }
+  .social-widget-icon svg {
+    max-height: 2em;
+    max-width: 2em;
+    fill: #009E66; }
+
+.min-img {
+  min-width: 3em;
+  min-height: 3em; }
 
 /*# sourceMappingURL=cupidog.css.map */

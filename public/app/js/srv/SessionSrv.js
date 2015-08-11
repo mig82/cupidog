@@ -94,6 +94,14 @@ angular.module('cupidog').factory('SessionSrv', ['$q', 'RestCliSrv', function($q
 			return RestCliSrv.savePetLikes(petId, likes).then(function(pet){
 				return this.setPet(pet);
 			}.bind(this));
-		}
+		},
+
+		getPosts: function(){
+			return RestCliSrv.getPosts();
+		},
+
+		createPost: function(post){
+			return RestCliSrv.createPost(post);
+		},
 	};
 }]);

@@ -12,15 +12,20 @@ angular.module('cupidog').controller('PetsCtrl', ['$scope', 'SessionSrv', 'Navig
 		}
 	});
 
+	$scope.gotoPetHome = function(pet){
+		SessionSrv.setPet(pet);
+		NavigationSrv.gotoPetHome();
+	};
+
 	$scope.gotoUpdate = function(pet){
 		SessionSrv.setPet(pet);
 		NavigationSrv.gotoUpdatePet();
-	}
+	};
 
 	$scope.gotoCreatePet = function(){
 		SessionSrv.setPet('');
 		NavigationSrv.gotoCreatePet();
-	}
+	};
 }]);
 
 

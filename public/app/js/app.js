@@ -45,6 +45,11 @@ var app = angular.module('cupidog', ['ngRoute', 'mgcrea.ngStrap', 'ui.router'])
 		templateUrl: "views/pets.html" 
 	})
 
+	.state('main.pethome', {
+		url: "/pethome",
+		templateUrl: "views/pet-home.html" 
+	})
+
 	.state('main.addpet', {
 		url: "/addpet",
 		/*templateUrl: "views/addpet.html"*/

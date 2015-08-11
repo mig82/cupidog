@@ -5,7 +5,7 @@ var mongojs = require('mongojs');
 var Q = require('q');
 Q.longStackSupport = true;
 
-var db = mongojs('cupidog', ['users', 'pets', 'species', 'breeds']);
+var db = mongojs('cupidog', ['users', 'pets', 'species', 'breeds', 'posts']);
 
 exports.Pets = {
 
@@ -208,5 +208,38 @@ exports.Users = {
                 return done(null, user);
             }
 		});
+	},
+};
+
+exports.Posts = {
+	findPosts: function(){
+		var deferred = Q.defer();
+
+		db.posts.find(function(error, posts){
+			if (error) {
+				deferred.reject(new Error(error));
+			}
+			else {
+				deferred.resolve(posts);
+			}
+		});
+		return deferred.promise;
+	},
+
+	createPost: function(newPost){
+		var deferred = Q.defer();
+		newPost.author = mongojs.ObjectId(newPost.author);
+		newPost.created = new Date();
+		newPost.lastUpdate = newPost.created;
+
+		db.posts.insert(newPost, function(error, post){
+			if (error) {
+				deferred.reject(new Error(error));
+			}
+			else {
+				deferred.resolve(post);
+			}
+		});
+		return deferred.promise;
 	},
 };

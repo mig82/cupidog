@@ -41,3 +41,10 @@ a.topbar-nav:active{
 	@extend a.topbar-nav;
 	border-bottom: 4px solid $cyan-color;
 }
+
+.navbar-toggle {
+
+    .icon-bar {
+		background-color: $cyan-color;
+	}
+}

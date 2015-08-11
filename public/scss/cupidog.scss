@@ -84,6 +84,7 @@ a.delete:focus, a.delete:hover{
 ul.qpidog-list{
 	@include border-radius(0%);
 	margin-top: 0px;
+	padding-left: 0px;
 
 	li.qpidog-list-item{
 		@include box-shadow-helper(2);
@@ -120,16 +121,25 @@ ul.qpidog-list{
 	background-color: $cyan-color;
 	@include box-shadow-helper(2);
 	padding: 1em; 
+	color: #009E66;
 }
 
 .social-widget{
 	padding-right: 1em;
 	cursor: pointer;
+	color: inherit;
 }
 
 .social-widget-icon{
+	color:inherit;
 	svg{
-		max-height: 2.5em;
-		max-width: 2.5em;
+		max-height: 2em;
+		max-width:  2em;
+		fill: #009E66;
 	}
+}
+
+.min-img{
+	min-width: 3em;
+	min-height: 3em;
 }
