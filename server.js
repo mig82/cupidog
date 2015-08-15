@@ -248,5 +248,6 @@ app.get('/auth/facebook/callback', function(req, res, next){
 	)(req, res, next);
 });
 
-app.listen(3000)
+app.listen(3000);
 console.log("Cupidog server running on port 3000");
+console.log("    Started at " + new Date() );
