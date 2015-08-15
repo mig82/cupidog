@@ -1,7 +1,7 @@
 
 "use strict";
 
-var app = angular.module('cupidog', ['ngRoute', 'mgcrea.ngStrap', 'ui.router'])
+var app = angular.module('cupidog', ['ngRoute', 'mgcrea.ngStrap', 'ui.router', 'ngResource'])
 
 //.config(['$routeProvider', function($routeProvider) {
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {

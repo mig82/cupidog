@@ -35,7 +35,12 @@ var Posts = ds.Posts;
 // Authenticate using HTTP Bearer credentials, with session support disabled.
 // passport.authenticate('bearer', { session: false }),
 
-/**
+
+/*********************/
+/******* Pets ********/
+/*********************/
+
+/**	Find all pets for a specific user.
 	EndPoint: cupidog.com/api/pets?user=123
 	String user: the Id for the user whose pets are requested.
 */
@@ -77,6 +82,10 @@ app.put("/api/pets/:id",
 	}
 );
 
+/*********************/
+/******* breeds ******/
+/*********************/
+
 app.get("/api/breeds",
 	passport.authenticate('bearer', { session: false }),
 	function(req, res){
@@ -90,6 +99,10 @@ app.get("/api/breeds",
 	}
 );
 
+/*********************/
+/******* species *******/
+/*********************/
+
 app.get("/api/species",
 	passport.authenticate('bearer', { session: false }),
 	function(req, res){
@@ -101,7 +114,13 @@ app.get("/api/species",
 	}
 );
 
-/*Matches mydomain.com/api/users/myemail@somemail.com?password=123*/
+/*********************/
+/******* users *******/
+/*********************/
+
+/*	Find by a user by user/email and password
+*	Matches mydomain.com/api/users/myemail@somemail.com?password=123
+*/
 app.get('/api/users/:email', function(req, res) {
 
 		var email = req.params.email;
@@ -120,7 +139,9 @@ app.get('/api/users/:email', function(req, res) {
 
 });
 
-/*Matches mydomain.com/api/users?access_token=123*/
+/*	Find a user by third party bearer authentication token.
+	Matches mydomain.com/api/users?access_token=123
+*/
 app.get('/api/users',
 	passport.authenticate('bearer', { session: false }),
 	function(req, res) {
@@ -156,12 +177,28 @@ app.get("/api/posts",
 	}
 );
 
-app.post("/api/posts",
+app.get("/api/pets/:id/posts",
+	passport.authenticate('bearer', { session: false }),
+	function(req, res){
+
+		var petId = req.params.id;
+		console.log("GET req for posts of pet %o", petId);
+		
+		Posts.findPosts(petId).then(function(posts){
+			console.log("posts found: ", posts)	
+			res.json(posts);
+		});
+	}
+);
+
+app.post("/api/pets/:id/posts",
 	passport.authenticate('bearer', { session: false }),
 	function(req, res){
 		console.log("POST req for posts");
 
 		var newPost = req.body;
+		newPost._petAuthor = req.params.id;
+
 		console.log("POST req for pet %o", newPost);
 
 		Posts.createPost(newPost).then(function(post){

@@ -1,7 +1,7 @@
-<div class="panel panel-default profile-container" data-ng-class="pet.gender=='m'?'profile-male':'profile-female'"/>
+<div class="panel panel-default profile-container" data-ng-class="pet.gender=='m'?'profile-male':'profile-female'" data-ng-controller="PetPanelCtrl"/>
 	<div class="panel-heading">&nbsp;</div>
 	
-	<div class="panel-body container-fluid">
+	<div class="panel-body container-fluid pet-panel">
 
 		<div class="row profile-row">
 			<div class="col-xs-3">
@@ -38,7 +38,9 @@
 		</div>
 
 		<div class="row profile-row">
-			<span class="col-xs-12">&nbsp;</span>
+			<div class="col-xs-12">
+				<div class="pet-desc"><small><em>{{pet.desc}}</em></small></div>
+			</div>
 		</div>
 
 		<div class="row profile-row">
@@ -61,33 +63,39 @@
 		</div>
 
 		<div class="row profile-row">
-			<div class="col-xs-12">
-				<blockquote>
-					<p>{{pet.desc}}</p>
-					<!--footer>Someone famous in <cite title="Source Title">Source Title</cite></footer-->
-				</blockquote>
+			<span class="col-xs-4">My awards</span>
+			<ul class="list-inline tags-container col-xs-8" data-ng-show="pet.awards">
+				<li class="" ng-repeat="award in pet.awards track by $index"><img title="{{award}}" class="trophy-icon" src="/img/icons/trophy.svg"><span>{{award}}</span></li>
+			</ul>
+			<div class="col-xs-8" data-ng-show="!pet.awards">
+				<span><small><em>You've not won any <a href="">awards</a> yet! To participate in a the next <a href="">CupiDog Cup</a> or perhaps create your own <a href="">contest or event</a> Go <a href="">here</a>.</em></small></span>
+			</div>
+		</div>
+		
+		<div class="row profile-row">
+			<span class="col-xs-4">I like</span>
+			<ul class="list-inline tags-container col-xs-8" data-ng-show="pet.likes">
+				<li class="std-tag" ng-repeat="like in pet.likes track by $index">{{like}}</li>
+			</ul>
+			<div class="col-xs-8" data-ng-show="!pet.likes">
+				<span><small><em>You haven't shared with us what your <a href="">hobbies and passtimes</a> are yet! Would you like to <a href="">start</a>?</em></small></span>
 			</div>
 		</div>
 
 		<div class="row profile-row">
-			<span class="col-xs-2">My awards</span>
-			<ul class="list-inline tags-container col-xs-10">
-				<li class="" ng-repeat="award in pet.awards track by $index"><img title="{{award}}" class="trophy-icon" src="/img/icons/trophy.svg"><span>{{award}}</span></li>
+			<span class="col-xs-4">Packs I run with</span>
+			<ul class="list-inline tags-container col-xs-8" data-ng-show="pet.packs">
+				<li class="std-tag" ng-repeat="pack in pet.packs track by $index">{{pack}}</li>
 			</ul>
-		</div>
-		
-		<div class="row profile-row">
-			<span class="col-xs-2">I like</span>
-			<ul class="list-inline tags-container col-xs-10">
-				<li class="std-tag" ng-repeat="like in pet.likes track by $index">{{like}}</li>
-			</ul>
+			<div class="col-xs-8" data-ng-show="!pet.packs">
+				<span><small><em>You're not part of any <a href="">packs</a> yet! Packs are loads of fun. Want to join or create one? Go <a href="">here</a>.</em></small></span>
+			</div>
 		</div>
 
 		<div class="row profile-row">
-			<span class="col-xs-2">I run with</span>
-			<ul class="list-inline tags-container col-xs-10">
-				<li class="std-tag" ng-repeat="pack in pet.packs track by $index">{{pack}}</li>
-			</ul>
+			<div class="col-xs-12">
+				<pet-status pet="pet" placeholder="'Share something with your friends'" save-status-fn="savePetStatus(pet)">
+			</div>
 		</div>
 
 	</div>

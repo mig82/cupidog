@@ -30,14 +30,14 @@ angular.module('cupidog').factory('SessionSrv', ['$q', 'RestCliSrv', function($q
 
 		getUserByUserPassword: function(userId, password){
 			if(!_user){
-				console.log("SessionSrv _user is undefined");
+				//console.log("SessionSrv _user is undefined");
 				return RestCliSrv.getUserByUserPassword().then(function(user){
 					_user = user;
 					return _user;
 				});
 			}
 			else{
-				console.log("SessionSrv _user is already defined");
+				//console.log("SessionSrv _user is already defined");
 				return $q.when(_user);
 			}
 		},
@@ -96,12 +96,23 @@ angular.module('cupidog').factory('SessionSrv', ['$q', 'RestCliSrv', function($q
 			}.bind(this));
 		},
 
-		getPosts: function(){
-			return RestCliSrv.getPosts();
+		getPosts: function(pet){
+			return RestCliSrv.getPosts(pet);
 		},
 
 		createPost: function(post){
 			return RestCliSrv.createPost(post);
+		},
+
+		updatePetStatus: function(pet){
+			return RestCliSrv.createPetPost(_user, pet).then(function(post){
+				console.log("Created post %o", post);
+				pet.status = post;
+				return RestCliSrv.updatePet(pet).then(function(pet){
+					console.log("Updated pet to %o", pet);
+					return this.setPet(pet);
+				}.bind(this));
+			}.bind(this));
 		},
 	};
 }]);

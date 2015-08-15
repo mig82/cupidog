@@ -59,7 +59,8 @@ exports.Pets = {
 				packs: updPet.packs,
 				awards: updPet.awards,
 				desc: updPet.desc,
-				lastUpdate: lastUpdate
+				lastUpdate: lastUpdate,
+				status: updPet.status,
 			}},
 			new: true
 		}, function(error, pet){
@@ -212,10 +213,15 @@ exports.Users = {
 };
 
 exports.Posts = {
-	findPosts: function(){
+	findPosts: function(petId){
 		var deferred = Q.defer();
+		
+		var query = {};
+		if(petId){
+			query._petAuthor = mongojs.ObjectId(petId);
+		}
 
-		db.posts.find(function(error, posts){
+		db.posts.find(query).sort({created: -1}, function(error, posts){
 			if (error) {
 				deferred.reject(new Error(error));
 			}
@@ -228,7 +234,8 @@ exports.Posts = {
 
 	createPost: function(newPost){
 		var deferred = Q.defer();
-		newPost.author = mongojs.ObjectId(newPost.author);
+		newPost._petAuthor = mongojs.ObjectId(newPost._petAuthor);
+		newPost._userAuthor = mongojs.ObjectId(newPost._userAuthor);
 		newPost.created = new Date();
 		newPost.lastUpdate = newPost.created;
 

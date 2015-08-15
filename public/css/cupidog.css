@@ -4,7 +4,7 @@
 .profile-container, .profile-female, .profile-male {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   position: relative;
-  margin-bottom: 5px;
+  margin-bottom: 1em;
   border: none !important;
   border-radius: 0px !important;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); }
@@ -42,6 +42,8 @@
     fill: #FF607C; }
   .profile-female blockquote {
     border-color: #FF607C; }
+  .profile-female .pet-desc {
+    color: #FF607C; }
 
 .profile-male {
   /*border-color: $male-fore;*/
@@ -58,6 +60,8 @@
     fill: #54C6E1; }
   .profile-male blockquote {
     border-color: #54C6E1; }
+  .profile-male .pet-desc {
+    color: #54C6E1; }
 
 div.profile-pic {
   max-height: 100px;
@@ -66,7 +70,7 @@ div.profile-pic {
   position: relative; }
   div.profile-pic img {
     position: absolute;
-    top: -40px; }
+    top: -20px; }
 
 @media (min-width: 992px) {
   max-height: 200px;
@@ -111,6 +115,9 @@ ul.pet-list {
 
 .profile-row {
   margin-bottom: 0.5em; }
+
+.pet-panel {
+  padding-top: 0px; }
 
 .cupidog-brand {
   padding-top: 5px;
@@ -402,15 +409,18 @@ ul.qpidog-list {
   width: 100%; }
 
 .social-widgets-panel {
-  background-color: #60D9AE;
+  /*background-color: $cyan-color;*/
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  padding: 1em;
+  padding: 0.5em 1em;
   color: #009E66; }
 
 .social-widget {
   padding-right: 1em;
   cursor: pointer;
-  color: inherit; }
+  color: inherit;
+  text-decoration: none; }
+  .social-widget a:hover {
+    text-decoration: none; }
 
 .social-widget-icon {
   color: inherit; }
@@ -422,5 +432,26 @@ ul.qpidog-list {
 .min-img {
   min-width: 3em;
   min-height: 3em; }
+
+blockquote {
+  border-color: #CFAE76; }
+
+.status-update-panel {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  -webkit-border-radius: 0% !important;
+  -moz-border-radius: 0% !important;
+  -ms-border-radius: 0% !important;
+  border-radius: 0% !important;
+  padding: 1em; }
+
+ul.qpidog-list-inline li {
+  border-right: 1px solid #60D9AE;
+  padding-right: 1em; }
+  ul.qpidog-list-inline li:last-child {
+    border-right: none; }
+
+.map-panel {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  margin-bottom: 1em; }
 
 /*# sourceMappingURL=cupidog.css.map */

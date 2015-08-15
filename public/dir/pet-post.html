@@ -1,0 +1,63 @@
+<div class="container-fluid">
+
+	<div class="row">
+		<div class="col-xs-10">
+			<blockquote>
+				{{post.text}}
+				<footer>
+					posted by
+					<cite title="Author">
+						<a href="">@{{post.petAuthorName | camelcase}}</a>
+						 {{" on "}}
+						 {{post.created | date:'MMM d, y h:mm a'}}
+					</cite>
+				</footer>
+			</blockquote>
+		</div>
+		<div class="col-xs-2">
+			<div class="">
+				<img class="img-responsive img-thumbnail min-img" data-ng-src="img/icons/dog-ico.svg">
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="post-img-container">
+				<!--img class="post-img" src="{{post.url}}"-->
+				<object width="100%" class="post-img" data="{{post.url}}"></object>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-xs-12">			
+
+			<div class="vert-padd-1">
+
+				<div class="social-widgets-panel vert-padd-1">
+					<span class="social-widget">
+						<a>
+							<span class="social-widget-icon" data-ng-include="'img/icons/shakapaw1.svg'"></span>
+							<span class="text-capitalize">like</span>
+						</a>
+						<a>{{n.likes}}</a>
+					</span>
+					<span class="social-widget">
+						<a>
+							<span class="social-widget-icon" data-ng-include="'img/icons/share.svg'"></span>
+							<span class="text-capitalize">share</span>
+						</a>
+						<a>{{n.shares}}</a>
+					</span>
+					<span class="social-widget">
+						<a>
+							<span class="social-widget-icon" data-ng-include="'img/icons/petcoin.svg'"  ></span>
+							<span class="text-capitalize">contribute</span>
+						</a>
+					</span>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</div>

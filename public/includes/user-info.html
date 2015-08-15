@@ -1,8 +1,8 @@
 <div data-ng-controller="UserCtrl">
 	<ul class="list-group">
-		<li class="list-group-item std-panel-head">{{user.name}}</li>
-		<li class="list-group-item">{{user.displayName}}</li>
-		<li class="list-group-item">{{user.email}}</li>
+		<li class="list-group-item std-panel-head"><small>{{user.name}}</small></li>
+		<li class="list-group-item"><small>{{user.displayName}}</small></li>
+		<li class="list-group-item"><small>{{user.email}}</small></li>
 		<li class="list-group-item">
 			<img data-ng-repeat="q in user.qualifications" class="trophy-icon" title="{{q}}" src="/img/icons/{{q}}.svg">
 		</li>

@@ -3,7 +3,7 @@
 .profile-container{
 	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	position: relative;
-	margin-bottom: 5px;
+	margin-bottom: 1em;
 	border: none !important;
 	border-radius: 0px !important;
 	@include box-shadow-helper(2);
@@ -56,6 +56,10 @@
 	blockquote{
 		border-color: $female-fore;
 	}
+
+	.pet-desc{
+		color: $female-fore;
+	}
 }
 
 .profile-male{
@@ -80,6 +84,10 @@
 	blockquote{
 		border-color: $male-fore;
 	}
+
+	.pet-desc{
+		color: $male-fore;
+	}
 }
 
 div.profile-pic{
@@ -90,7 +98,7 @@ div.profile-pic{
 
 	img{
 		position: absolute;
-		top: -40px;
+		top: -20px;
 	}
 }
 
@@ -152,3 +160,8 @@ ul.pet-list{
 	margin-bottom: 0.5em;
 
 }
+
+.pet-panel{
+	padding-top: 0px;
+}
+

@@ -104,8 +104,18 @@ angular.module('cupidog').factory('RestCliSrv', ['$http', '$rootScope', function
 			});
 		},
 
-		getPosts: function(){
-			return $http.get( "/api/posts?access_token=" + this.getToken() ).success(function(res){
+		getPosts: function(pet){
+
+			var url = "";
+
+			if(pet){
+				url = "/api/pets/" + pet._id + "/posts/";
+			}
+			else{
+				url = "/api/posts";
+			}
+
+			return $http.get( url.concat( "?access_token=" + this.getToken() ) ).success(function(res){
 				return res;
 			}).error(function(res, status){
 				console.error("REST Cli Error getPosts %s: %o", status, res);
@@ -116,11 +126,17 @@ angular.module('cupidog').factory('RestCliSrv', ['$http', '$rootScope', function
 			});
 		},
 
-		createPost: function(post){
-			return $http.post("/api/posts?access_token=" + this.getToken(), post).success(function(res){
+		createPetPost: function(user, pet){
+
+			pet.status._userAuthor = user._id;
+			pet.status._petAuthor = pet._id;
+			pet.status.userAuthorName = user.displayName?user.displayName:user.name;
+			pet.status.petAuthorName = pet.name;
+
+			return $http.post("/api/pets/" + pet._id + "/posts/?access_token=" + this.getToken(), pet.status).success(function(res){
 				return res;
 			}).error(function(res, status){
-				console.error("REST Cli Error createPost %s: %o", status, res);
+				console.error("REST Cli Error updatePetStatus %s: %o", status, res);
 				return res;
 			}).then(function(res){
 				//This just separates the actual data from the http response object so that the logic layer can be protocol agnostic.

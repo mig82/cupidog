@@ -118,9 +118,9 @@ ul.qpidog-list{
 }
 
 .social-widgets-panel{
-	background-color: $cyan-color;
+	/*background-color: $cyan-color;*/
 	@include box-shadow-helper(2);
-	padding: 1em; 
+	padding: 0.5em 1em; 
 	color: #009E66;
 }
 
@@ -128,6 +128,11 @@ ul.qpidog-list{
 	padding-right: 1em;
 	cursor: pointer;
 	color: inherit;
+	text-decoration: none;
+
+	a:hover{
+		text-decoration: none;
+	}
 }
 
 .social-widget-icon{
@@ -142,4 +147,30 @@ ul.qpidog-list{
 .min-img{
 	min-width: 3em;
 	min-height: 3em;
+}
+
+blockquote{
+	border-color: $brown-color;
+}
+
+.status-update-panel{
+	@include box-shadow-helper(2);
+	@include border-radius(0%);
+	padding: 1em;
+}
+
+ul.qpidog-list-inline{
+	li{
+		border-right: 1px solid $cyan-color;
+		padding-right: 1em;
+
+		&:last-child{
+			border-right: none;
+		}
+	}
+}
+
+.map-panel{
+	@include box-shadow-helper(2);
+	margin-bottom: 1em;
 }
