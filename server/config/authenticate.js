@@ -5,51 +5,86 @@ var BearerStrategy = require('passport-http-bearer').Strategy;
 var ds = require('../datastore/datastore');
 var Users = ds.Users;
 
-/*var BasicStrategy = require('passport-http').BasicStrategy
+var fs = require('fs');
+var nconf = require('nconf');
 
-passport.use(new BasicStrategy(
-	{
-		usernameField: 'email',
-		passwordField: 'password'
-	},
-	function(username, password, done) {
-		Users.findOne({ email: username }, function (err, user) {
-			//if (err) { return done(err); }
-			//if (!user) { return done(null, false); }
-			//if (!user.validPassword(password)) { return done(null, false); }
-			return done(null, user);
-		});
-	}
-));*/
+//
+// Setup nconf to use (in-order):
+//	 1. Command-line arguments
+//	 2. Environment variables
+//	 3. A file located at 'path/to/config.json'
+//
+nconf.argv()
+	.env()
+	.file({ file: 'server/config/config.json' });
 
+//
+// Set a few variables on `nconf`.
+//
+nconf.set('port', 3000);
 
-
-
-
-
-
+var NODE_ENV = nconf.get('NODE_ENV');
 
 /*******************************/
 /***** Production settings *****/
 /*******************************/
-var APP_DOMAIN = "http://ec2-52-28-118-238.eu-central-1.compute.amazonaws.com:3000"; //https://www.cupidog.es
-var FACEBOOK_APP_ID = '1632816823668819';
-var FACEBOOK_APP_SECRET = '36f1bba41f9fd569714519333c1a3870';
+var fbProdConf = {
+	APP_DOMAIN: "https://www.cupidog.es:3000",
+	FACEBOOK_APP_ID: '1632816823668819',
+	FACEBOOK_APP_SECRET: '36f1bba41f9fd569714519333c1a3870',
+	FACEBOOK_API_VERSION: 'v2.4'
+}
+
+/*******************************/
+/******** Test settings ********/
+/*******************************/
+var fbTestConf = {
+	APP_DOMAIN: "http://ec2-52-28-118-238.eu-central-1.compute.amazonaws.com:3000",
+	FACEBOOK_APP_ID: '1632816823668819',
+	FACEBOOK_APP_SECRET: '36f1bba41f9fd569714519333c1a3870',
+	FACEBOOK_API_VERSION: 'v2.4',
+}
 
 /*******************************/
 /***** Development settings ****/
 /*******************************/
-//var APP_DOMAIN = "http://localhost:3000";
-//var FACEBOOK_APP_ID = '1636117153338786';
-//var FACEBOOK_APP_SECRET = 'a40b2c53643f53d28e0d9b9f584ffd9e';
+var fbDevConf = {
+	APP_DOMAIN: "http://localhost:3000",
+	FACEBOOK_APP_ID: '1636117153338786',
+	FACEBOOK_APP_SECRET: 'a40b2c53643f53d28e0d9b9f584ffd9e',
+	FACEBOOK_API_VERSION: 'v2.4'
+}
 
+var fbConf = {};
+if(NODE_ENV === 'prod') {
+	fbConf = fbProdConf;
+}
+else if (NODE_ENV === 'test'){
+	fbConf = fbTestConf
+}
+else{
+	fbConf = fbDevConf;
+}
+nconf.set('fbConf', fbConf);
 
-//var FACEBOOK_API_VERSION = 'v2.4';
+//See what's happening...
+console.log('NODE_ENV: ' + NODE_ENV);
+console.log('APP_DOMAIN:' + fbConf.APP_DOMAIN);
 
-passport.use(new FacebookStrategy({
-		clientID: FACEBOOK_APP_ID,
-		clientSecret: FACEBOOK_APP_SECRET,
-		callbackURL: APP_DOMAIN + "/auth/facebook/callback",
+//
+// Save the configuration object to disk
+//
+nconf.save(function (err) {
+	fs.readFile('server/config/config.json', function (err, data) {
+		console.dir(JSON.parse(data.toString()))
+	});
+});
+
+passport.use(
+	new FacebookStrategy({
+		clientID: 		fbConf.FACEBOOK_APP_ID,
+		clientSecret: 	fbConf.FACEBOOK_APP_SECRET,
+		callbackURL: 	fbConf.APP_DOMAIN + "/auth/facebook/callback",
 		profileFields: ['id', 'emails', 'displayName']
 	},
 	function(accessToken, refreshToken, profile, done) {
@@ -86,29 +121,13 @@ passport.use(new FacebookStrategy({
 		/*Users.findOrCreate(_user, function(error, user) {
 			console.log("4) Found or created new FB user from data store: %o", user);
 			if (error) { return done(error); }
-	  		done(null, user);
+				done(null, user);
 		});*/
 
 	}
 ));
 
-passport.serializeUser(function(user, done) {
-	console.log("Serializing user %o", user);
-	done(null, user._id);
-});
-
-passport.deserializeUser(function(id, done) {
-	
-	Users.findById(id).then(function(user){
-		console.log("Deserializing user %o", user);
-		done(null,user);
-	}).fail(function(error){
-		done(error);
-	});
-});
-
-
-passport.use(  
+passport.use(	
 	new BearerStrategy(
 		function(token, done) {
 
@@ -127,5 +146,37 @@ passport.use(
 		}
 	)
 );
+
+/*var BasicStrategy = require('passport-http').BasicStrategy
+
+passport.use(new BasicStrategy(
+	{
+		usernameField: 'email',
+		passwordField: 'password'
+	},
+	function(username, password, done) {
+		Users.findOne({ email: username }, function (err, user) {
+			//if (err) { return done(err); }
+			//if (!user) { return done(null, false); }
+			//if (!user.validPassword(password)) { return done(null, false); }
+			return done(null, user);
+		});
+	}
+));
+
+passport.serializeUser(function(user, done) {
+	console.log("Serializing user %o", user);
+	done(null, user._id);
+});
+
+passport.deserializeUser(function(id, done) {
+	
+	Users.findById(id).then(function(user){
+		console.log("Deserializing user %o", user);
+		done(null,user);
+	}).fail(function(error){
+		done(error);
+	});
+});*/
 
 exports.passport = passport;

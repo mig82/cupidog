@@ -9,6 +9,7 @@
     "express": "~4.12.4",
     "express-session": "^1.11.3",
     "mongojs": "~1.0.1",
+    "nconf": "^0.7.2",
     "passport": "^0.2.2",
     "passport-facebook": "^2.0.0",
     "passport-http": "^0.2.2",
