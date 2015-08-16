@@ -76,7 +76,7 @@ console.log('APP_DOMAIN:' + fbConf.APP_DOMAIN);
 //
 nconf.save(function (err) {
 	fs.readFile('server/config/config.json', function (err, data) {
-		console.dir(JSON.parse(data.toString()))
+		//console.dir(JSON.parse(data.toString())) //TODO: returning undefined in AWS. Don't know why yet
 	});
 });
 
