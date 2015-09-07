@@ -12,6 +12,10 @@ angular.module('cupidog').factory('SessionSrv', ['$q', 'RestCliSrv', function($q
 			console.log("user set to: %o", _user)
 		},
 
+		_getUser: function(){
+			return _user;
+		},
+
 		getUser: function(){
 
 			if(!_user){
@@ -113,6 +117,14 @@ angular.module('cupidog').factory('SessionSrv', ['$q', 'RestCliSrv', function($q
 					return this.setPet(pet);
 				}.bind(this));
 			}.bind(this));
+		},
+
+		postPhotos: function(photos){
+			return RestCliSrv.postPhotos(_pet, photos);
+		},
+
+		findPhotos: function(){
+			return RestCliSrv.findPhotos(_pet);
 		},
 	};
 }]);

@@ -2,7 +2,8 @@
 	<div class="container-fluid">
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+			<!--button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1"-->
+			<button type="button" class="navbar-toggle" data-ng-click="toggleMenu()">
 				<span class="sr-only">Toggle navigation</span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
@@ -14,7 +15,7 @@
 		</div>
 
 		<!-- Collect the nav links, forms, and other content for toggling -->
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		<div class="navbar-collapse" id="navbar-collapse-1" data-ng-class="navbarMenuClass">
 			<ul class="nav navbar-nav">
 				<li><a class="topbar-nav active" ui-sref="main.home">Home</a></li>
 				<li><a class="topbar-nav" ui-sref="main.pets">My Pets</a></li>

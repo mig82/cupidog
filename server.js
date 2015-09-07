@@ -3,6 +3,8 @@
 var express = require('express');
 var app = express();
 
+var nconf = require('nconf');
+
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
@@ -29,6 +31,7 @@ var Breeds = ds.Breeds;
 var Species = ds.Species;
 var Users = ds.Users;
 var Posts = ds.Posts;
+var Photos = ds.Photos;
 
 
 // curl -v http://127.0.0.1:3000/?access_token=123456789
@@ -208,6 +211,179 @@ app.post("/api/pets/:id/posts",
 );
 
 /*********************/
+/*** photo uploads ***/
+/*********************/
+
+var multiparty = require('multiparty');
+
+var AWS = require('aws-sdk');
+
+var bucket = nconf.get('S3_BUCKET');;
+
+var s3 = new AWS.S3({
+  accessKeyId: "AKIAJDNC3ODEPBGJ36NA",//nconf.get('S3_KEY'),
+  secretAccessKey: "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",//nconf.get('S3_SECRET'),
+  region:'eu-west-1',
+  // See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Config.html#constructor-property
+});
+
+app.post('/api/pets/:id/photos',
+	function(req, res) {
+
+		var form = new multiparty.Form();
+		
+		form.on('field', function(name, value) {
+			console.log("Received field %s=%s", name, value);
+		});
+
+		form.on('part', function(part) {
+
+			var destPath = req.params.id + '/' + part.filename;
+			console.log("Received a part %o", part);
+
+			if (part.filename) {
+
+				var opts = {
+					Bucket: bucket,
+					Key: destPath,
+					ACL: 'public-read',
+					Body: part,
+					ContentLength: part.byteCount,
+				};
+
+				s3.putObject(opts, function(err, data) {
+					
+					if (err) throw err;
+					
+					console.log("Part upload completed!", data);
+					res.writeHead(200, {'content-type': 'text/plain'});
+					res.end('Ok');
+				});
+			}
+	
+		});
+
+		// Close emitted after form parsed
+		form.on('close', function() {
+			console.log("Form closed");
+			
+		});
+
+		form.parse(req);
+	}
+);
+
+/*app.post('/api/pets/:id/photos',
+	function(req, res) {
+
+		var count = 0;
+		var form = new multiparty.Form();
+		var petId = req.params.id;
+
+		var photo = {
+			_petAuthor: petId,
+			files: []
+		};
+
+		form.on('field', function(name, value) {
+			console.log("Field %s = %s", name, value);
+			if(name === 'userId'){
+				photo._userAuthor = value;
+			}
+		});
+
+		form.on('part', function(part) {
+			
+			if (part.filename) {
+				count++;
+				// filename is defined when this is a file
+				console.log('File: %o', part);
+				// ignore file's content here
+
+				photo.files.push(part);
+
+				part.resume();
+			}
+			else{
+				// filename is not defined when this is a field and not a file
+				console.log('Field: %s', part.name);
+				// ignore field's content
+				part.resume();
+			}
+
+			part.on('error', function(err) {
+				console.error("Error: %o", err);
+				// TODO: decide what to do
+			});
+		});
+
+		// Close emitted after form parsed
+		form.on('close', function() {
+
+			Photos.createPhoto(photo).then(function(photo){
+				//
+			});
+
+			console.log('Upload completed!');
+			res.writeHead(200, {'content-type': 'text/plain'});
+			res.end('Received ' + count + ' files');
+		});
+
+		form.parse(req);
+
+		/*form.parse(req, function(err, fields, files) {
+
+			console.log("Fields %o", fields);
+			console.log("Files %o", files);
+			
+			var photo = {
+				_petAuthor: petId,
+				_userAuthor: fields.userId,
+				/*file: files[0],*
+			}
+
+			Photos.createPhoto(photo).then(function(photo){
+				res.writeHead(200, {'content-type': 'text/plain'});
+				res.write('received upload');
+				//res.end(util.inspect({fields: fields, files: files}));
+			});
+		});*
+	}
+);*/
+
+app.get("/api/pets/:id/photos",
+	passport.authenticate('bearer', { session: false }),
+	function(req, res){
+
+		var petId = req.params.id;
+		console.log("GET req for photos of pet %o", petId);
+		
+		Photos.findPhotos(petId).then(function(photos){
+			console.log("photos found: ", photos)	
+			res.json(photos);
+		});
+	}
+);
+	
+
+/*app.post('/api/pets/:id/photos',
+	function(req, res) {
+
+		var form = new multiparty.Form();
+		var petId = req.params.id;
+
+		form.parse(req, function(err, fields, files) {
+
+			console.log("Fields %o", fields);
+			console.log("Files %o", files);
+
+			res.writeHead(200, {'content-type': 'text/plain'});
+			res.write('received upload');
+		});
+	}
+);*/
+
+/*********************/
 /******* login *******/
 /*********************/
 
@@ -243,11 +419,17 @@ app.get('/auth/facebook/callback', function(req, res, next){
 				console.log("6) No req.user or no req.user.access_token found, overwritting with user.access_token %o", token);
 			}
 			//res.json(user);
-			res.redirect('/#/main?access_token=' + token);
+			//res.redirect('/#/main?access_token=' + token);
+			res.redirect('http://www.qpidog.es.s3-website-eu-west-1.amazonaws.com/#/main?access_token=' + token);
 		}
 	)(req, res, next);
 });
 
+
+/*********************/
+/******* start *******/
+/*********************/
+
 app.listen(3000);
 console.log("Cupidog server running on port 3000");
-console.log("    Started at " + new Date() );
+console.log("	Started at " + new Date() );

@@ -143,6 +143,32 @@ angular.module('cupidog').factory('RestCliSrv', ['$http', '$rootScope', function
 				return res.data 
 			});
 		},
+
+		findPhotos: function(pet){
+			return $http.get( "/api/pets/" + pet._id + "/photos/?access_token=" + this.getToken() ).success(function(res){
+				return res;
+			}).error(function(res, status){
+				console.error("REST Cli Error getPhotos %s: %o", status, res);
+				return res;
+			}).then(function(res){
+				//This just separates the actual data from the http response object so that the logic layer can be protocol agnostic.
+				return res.data 
+			});
+		},
+
+		/*postPhotos: function(pet, photos){
+
+			console.log("Sending photos %o", photos);
+			return $http.post("/api/pets/" + pet._id + "/photos/", photos, {
+				transformRequest: angular.identity,
+				headers: {
+					'Content-Type': undefined
+				}
+			})
+			.success(function(d){
+				console.log("Success uploading %o", d);
+			});
+		},*/
 	};
 }]);
 

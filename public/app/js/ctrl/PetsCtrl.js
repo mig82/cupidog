@@ -26,6 +26,7 @@ angular.module('cupidog').controller('PetsCtrl', ['$scope', 'SessionSrv', 'Navig
 		SessionSrv.setPet('');
 		NavigationSrv.gotoCreatePet();
 	};
+
 }]);
 
 

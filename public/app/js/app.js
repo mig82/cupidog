@@ -1,7 +1,8 @@
 
 "use strict";
 
-var app = angular.module('cupidog', ['ngRoute', 'mgcrea.ngStrap', 'ui.router', 'ngResource'])
+//var app = angular.module('cupidog', ['ngRoute', 'mgcrea.ngStrap', 'ui.router', 'ngResource'])
+var app = angular.module('cupidog', ['ngRoute', 'ui.router', 'ngResource', 'ngAnimate', 'ngTouch', 'ngFileUpload'])
 
 //.config(['$routeProvider', function($routeProvider) {
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
@@ -61,6 +62,11 @@ var app = angular.module('cupidog', ['ngRoute', 'mgcrea.ngStrap', 'ui.router', '
 		url: "/updatepet",
 		templateUrl: "views/update-pet.html",
 		controller: "UpdatePetCtrl"
+	})
+
+	.state('main.photos', {
+		url: "/photos",
+		templateUrl: "views/photos.html"
 	})
 
 }])

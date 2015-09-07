@@ -69,8 +69,10 @@ div.profile-pic {
   margin-bottom: 15px;
   position: relative; }
   div.profile-pic img {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     position: absolute;
-    top: -20px; }
+    top: -20px;
+    cursor: pointer; }
 
 @media (min-width: 992px) {
   max-height: 200px;
@@ -159,6 +161,12 @@ a.topbar-nav:active {
 .navbar-toggle .icon-bar {
   background-color: #60D9AE; }
 
+.navbar-menu {
+  display: none; }
+
+@media only screen and (min-width: 768px) {
+  .navbar-menu {
+    display: block !important; } }
 .type-ahead-container {
   position: relative; }
 
@@ -347,11 +355,14 @@ a.delete:focus, a.delete:hover {
   width: 100%;
   background-color: #fff; }
 
-.left-sect, .right-sect, .center-sect {
-  background-color: none;
-  margin-left: 0.2em;
-  margin-right: 0.2em;
-  padding: 1em 0.2em; }
+/*.left-sect, .right-sect, .center-sect{
+	background-color: none;
+	margin-left: 0.2em;
+	margin-right: 0.2em;
+	padding: 1em 0.2em;
+}*/
+.main-container {
+  margin-top: 1em; }
 
 .action-icon {
   max-height: 1.5em;
@@ -437,7 +448,7 @@ blockquote {
   border-color: #CFAE76; }
 
 .status-update-panel {
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   -webkit-border-radius: 0% !important;
   -moz-border-radius: 0% !important;
   -ms-border-radius: 0% !important;
@@ -453,5 +464,20 @@ ul.qpidog-list-inline li {
 .map-panel {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   margin-bottom: 1em; }
+
+.fade {
+  opacity: 1; }
+  .fade.ng-hide {
+    -webkit-transition: 0.5 linear all;
+    -moz-transition: 0.5 linear all;
+    -o-transition: 0.5 linear all;
+    transition: 0.5 linear all;
+    opacity: 0; }
+
+.relative {
+  position: relative; }
+
+.absolute {
+  position: absolute; }
 
 /*# sourceMappingURL=cupidog.css.map */

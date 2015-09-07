@@ -5,6 +5,16 @@ angular.module('cupidog').controller('UserCtrl', ['$scope', '$http', '$location'
 		$scope.user = user;
 	});
 
+
+	var navbarMenuClass = "navbar-menu";
+	$scope.navbarMenuClass = navbarMenuClass;
+	$scope.toggleMenu = function(){
+		if($scope.navbarMenuClass)
+			$scope.navbarMenuClass = "";
+		else
+			$scope.navbarMenuClass = navbarMenuClass;
+	};
+
 }]);
 
 

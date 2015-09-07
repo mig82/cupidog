@@ -36,5 +36,9 @@ angular.module('cupidog').factory('NavigationSrv', ['$state', '$stateParams', fu
 		gotoPetHome: function(){
 			$state.go('main.pethome');
 		},
+
+		gotoPhotos: function(){
+			$state.go('main.photos');
+		},
 	};
 }]);

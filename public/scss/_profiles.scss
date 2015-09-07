@@ -91,14 +91,17 @@
 }
 
 div.profile-pic{
+
 	max-height: 100px;
 	max-width: 100px;
 	margin-bottom: 15px;
 	position: relative;
 
 	img{
+		@include box-shadow-helper(1);
 		position: absolute;
 		top: -20px;
+		cursor: pointer;
 	}
 }
 
@@ -164,4 +167,3 @@ ul.pet-list{
 .pet-panel{
 	padding-top: 0px;
 }
-

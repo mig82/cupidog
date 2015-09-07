@@ -7,7 +7,7 @@
 				<footer>
 					posted by
 					<cite title="Author">
-						<a href="">@{{post.petAuthorName | camelcase}}</a>
+						<a data-ng-click="gotoViewPetProfile()">@{{post.petAuthorName | camelcase}}</a>
 						 {{" on "}}
 						 {{post.created | date:'MMM d, y h:mm a'}}
 					</cite>
@@ -20,11 +20,11 @@
 			</div>
 		</div>
 	</div>
-	<div class="row">
+	<div class="row" >
 		<div class="col-xs-12">
 			<div class="post-img-container">
 				<!--img class="post-img" src="{{post.url}}"-->
-				<object width="100%" class="post-img" data="{{post.url}}"></object>
+				<object width="100%" data-ng-show="post.url" class="post-img" data="{{post.url}}"></object>
 			</div>
 		</div>
 	</div>
@@ -38,21 +38,21 @@
 					<span class="social-widget">
 						<a>
 							<span class="social-widget-icon" data-ng-include="'img/icons/shakapaw1.svg'"></span>
-							<span class="text-capitalize">like</span>
+							<span class="text-capitalize hidden-xs">like</span>
 						</a>
 						<a>{{n.likes}}</a>
 					</span>
 					<span class="social-widget">
 						<a>
 							<span class="social-widget-icon" data-ng-include="'img/icons/share.svg'"></span>
-							<span class="text-capitalize">share</span>
+							<span class="text-capitalize hidden-xs">share</span>
 						</a>
 						<a>{{n.shares}}</a>
 					</span>
 					<span class="social-widget">
 						<a>
 							<span class="social-widget-icon" data-ng-include="'img/icons/petcoin.svg'"  ></span>
-							<span class="text-capitalize">contribute</span>
+							<span class="text-capitalize hidden-xs">contribute</span>
 						</a>
 					</span>
 				</div>

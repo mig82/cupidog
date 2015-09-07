@@ -1,0 +1,79 @@
+<div data-ng-controller="PhotosCtrl">
+	Manage Photos
+
+	<style type="text/css">
+		.button {
+			-moz-appearance: button;
+			/* Firefox */
+			-webkit-appearance: button;
+			/* Safari and Chrome */
+			padding: 10px;
+			margin: 10px;
+			width: 70px;
+		}
+		.drop-box {
+			background: #F8F8F8;
+			border: 5px dashed #DDD;
+			width: 200px;
+			height: 65px;
+			text-align: center;
+			padding-top: 25px;
+			margin: 10px;
+		}
+		.dragover {
+			border: 5px dashed blue;
+		}
+	</style>
+
+	User Name
+	<input type="text" ng-model="username"></br></br>
+	
+	<!--watching model:
+	<div class="button" ngf-select ng-model="file" ngf-multiple="false">Select File</div>
+	
+	On file change multiple:
+	<div class="button" ngf-select ngf-change="upload($files)" ngf-multiple="true">Select File</div-->
+	
+	Drop File:
+	<div 	ngf-drop
+			ngf-select
+			ng-model="files"
+			class="drop-box" 
+			ngf-drag-over-class="dragover"
+			ngf-multiple="true"
+			ngf-allow-dir="true"
+			accept="image/*">
+			Drop images here or click to upload
+	</div>
+	<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+	
+	Files:
+	<ul>
+		<li ng-repeat="f in files" style="font:smaller">
+			<span>{{f.name}}</span>
+			<img 
+				ngf-src="f"
+				ngf-no-object-url="false"
+				ng-show="f.type.indexOf('image') > -1" ngf-accept="'image/*'" >
+		</li>
+	</ul>
+
+	Upload Log:
+	<pre>{{log}}</pre>
+
+
+	<img data-ng-repeat="p in photos" src="{{p.files[0]._readableState.buffer}}">
+	<!--form>
+		<!--input type="file" name="files" data-ng-model="photos" multiple onchange="angular.element(this).scope().filesChanged(this)"->
+		<input type="file" multiple file-input="files">
+		<button data-ng-click="uploadPhotos()">upload</button>
+	</form>
+	
+	<ul>
+		<li data-ng-repeat="f in files">
+			{{f.name}}
+			<img src="{{f}}">
+		</li>
+	</ul-->
+
+</div>

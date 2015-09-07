@@ -5,7 +5,7 @@ var mongojs = require('mongojs');
 var Q = require('q');
 Q.longStackSupport = true;
 
-var db = mongojs('cupidog', ['users', 'pets', 'species', 'breeds', 'posts']);
+var db = mongojs('cupidog', ['users', 'pets', 'species', 'breeds', 'posts', 'photos']);
 
 exports.Pets = {
 
@@ -245,6 +245,45 @@ exports.Posts = {
 			}
 			else {
 				deferred.resolve(post);
+			}
+		});
+		return deferred.promise;
+	},
+};
+
+exports.Photos = {
+	findPhotos: function(petId){
+		var deferred = Q.defer();
+		
+		var query = {};
+		if(petId){
+			query._petAuthor = mongojs.ObjectId(petId);
+		}
+
+		db.photos.find(query).sort({created: -1}, function(error, photos){
+			if (error) {
+				deferred.reject(new Error(error));
+			}
+			else {
+				deferred.resolve(photos);
+			}
+		});
+		return deferred.promise;
+	},
+
+	createPhoto: function(photo){
+		var deferred = Q.defer();
+		photo._petAuthor = mongojs.ObjectId(photo._petAuthor);
+		photo._userAuthor = mongojs.ObjectId(photo._userAuthor);
+		photo.created = new Date();
+		photo.lastUpdate = photo.created;
+
+		db.photos.insert(photo, function(error, photo){
+			if (error) {
+				deferred.reject(new Error(error));
+			}
+			else {
+				deferred.resolve(photo);
 			}
 		});
 		return deferred.promise;
