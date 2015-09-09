@@ -1,32 +1,10 @@
 <div data-ng-controller="PhotosCtrl">
-	Manage Photos
+	
+	<h2>Manage Photos for {{pet.name}}</h2>
 
-	<style type="text/css">
-		.button {
-			-moz-appearance: button;
-			/* Firefox */
-			-webkit-appearance: button;
-			/* Safari and Chrome */
-			padding: 10px;
-			margin: 10px;
-			width: 70px;
-		}
-		.drop-box {
-			background: #F8F8F8;
-			border: 5px dashed #DDD;
-			width: 200px;
-			height: 65px;
-			text-align: center;
-			padding-top: 25px;
-			margin: 10px;
-		}
-		.dragover {
-			border: 5px dashed blue;
-		}
-	</style>
-
-	User Name
-	<input type="text" ng-model="username"></br></br>
+	<img height="100px" src="{{pet.profilePic}}">
+	<input type="text" data-ng-model="pet.profilePic">
+	
 	
 	<!--watching model:
 	<div class="button" ngf-select ng-model="file" ngf-multiple="false">Select File</div>
@@ -34,7 +12,7 @@
 	On file change multiple:
 	<div class="button" ngf-select ngf-change="upload($files)" ngf-multiple="true">Select File</div-->
 	
-	Drop File:
+	<h3>Drop File:</h3>
 	<div 	ngf-drop
 			ngf-select
 			ng-model="files"
@@ -47,7 +25,7 @@
 	</div>
 	<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
 	
-	Files:
+	<!--h5>Files:</h5>
 	<ul>
 		<li ng-repeat="f in files" style="font:smaller">
 			<span>{{f.name}}</span>
@@ -56,13 +34,25 @@
 				ngf-no-object-url="false"
 				ng-show="f.type.indexOf('image') > -1" ngf-accept="'image/*'" >
 		</li>
-	</ul>
+	</ul-->
 
-	Upload Log:
+	<h4>Upload Log:</h4>
 	<pre>{{log}}</pre>
 
-
-	<img data-ng-repeat="p in photos" src="{{p.files[0]._readableState.buffer}}">
+	<div class="container-fluid">
+		<div class="row" >
+			<div class="col-xs-12 col-sm-4 gallery-container" data-ng-repeat="p in photos" >
+				<img class="img-responsive gallery-photo _img-thumbnail" src="{{p.src}}">
+				<div class="radio">
+					<label>
+						<input type="radio" name="profilePicOpts" title="Make this my profile pic" value="{{p.src}}" data-ng-model="pet.profilePic" data-ng-change="setProfilePic()">
+						Profile Pic
+					</label>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	<!--form>
 		<!--input type="file" name="files" data-ng-model="photos" multiple onchange="angular.element(this).scope().filesChanged(this)"->
 		<input type="file" multiple file-input="files">

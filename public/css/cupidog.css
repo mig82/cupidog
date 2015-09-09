@@ -63,12 +63,12 @@
   .profile-male .pet-desc {
     color: #54C6E1; }
 
-div.profile-pic {
+.profile-pic-container {
   max-height: 100px;
   max-width: 100px;
   margin-bottom: 15px;
   position: relative; }
-  div.profile-pic img {
+  .profile-pic-container .profile-pic-img {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     position: absolute;
     top: -20px;
@@ -322,6 +322,25 @@ input.ng-invalid-required.ng-dirty {
   background-color: #fff;
   border: none;
   color: #60D9AE; }
+
+.drop-box {
+  background-color: #F8F8F8;
+  border: 5px dashed #DDD;
+  width: 200px;
+  height: 65px;
+  text-align: center;
+  padding-top: 25px;
+  margin: 10px; }
+
+.dragover {
+  border: 5px dashed blue; }
+
+.gallery-photo {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  border: 1px solid #DDD; }
+
+.gallery-container {
+  margin: 1em 0 1em 0; }
 
 body {
   /*background-color: rgb(226, 255, 255)*/

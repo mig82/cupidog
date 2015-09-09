@@ -56,7 +56,7 @@ angular.module('cupidog').factory('SessionSrv', ['$q', 'RestCliSrv', function($q
 		},
 
 		getPet: function(){
-			return _pet
+			return _pet;
 		},
 
 		getPets: function(user){

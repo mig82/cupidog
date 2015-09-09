@@ -50,6 +50,7 @@ exports.Pets = {
 				name: updPet.name,
 				sp: updPet.sp,
 				spIco: updPet.spIco,
+				profilePic: updPet.profilePic,
 				breed: updPet.breed,
 				gender: updPet.gender,
 				loc: updPet.loc,
@@ -273,8 +274,8 @@ exports.Photos = {
 
 	createPhoto: function(photo){
 		var deferred = Q.defer();
-		photo._petAuthor = mongojs.ObjectId(photo._petAuthor);
-		photo._userAuthor = mongojs.ObjectId(photo._userAuthor);
+		photo._petAuthor = mongojs.ObjectId(photo.petId);
+		photo._userAuthor = mongojs.ObjectId(photo.userId);
 		photo.created = new Date();
 		photo.lastUpdate = photo.created;
 

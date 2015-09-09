@@ -215,15 +215,12 @@ app.post("/api/pets/:id/posts",
 /*********************/
 
 var multiparty = require('multiparty');
-
 var AWS = require('aws-sdk');
-
-var bucket = nconf.get('S3_BUCKET');;
-
+var bucket = nconf.get('S3_BUCKET');
 var s3 = new AWS.S3({
-  accessKeyId: "AKIAJDNC3ODEPBGJ36NA",//nconf.get('S3_KEY'),
-  secretAccessKey: "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",//nconf.get('S3_SECRET'),
-  region:'eu-west-1',
+  accessKeyId: nconf.get('S3_KEY'),
+  secretAccessKey: nconf.get('S3_SECRET'),
+  region: nconf.get('S3_REGION'),
   // See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Config.html#constructor-property
 });
 
@@ -231,17 +228,21 @@ app.post('/api/pets/:id/photos',
 	function(req, res) {
 
 		var form = new multiparty.Form();
+		var photo = {};
 		
 		form.on('field', function(name, value) {
 			console.log("Received field %s=%s", name, value);
+			photo[name] = value;
 		});
 
 		form.on('part', function(part) {
 
-			var destPath = req.params.id + '/' + part.filename;
 			console.log("Received a part %o", part);
-
 			if (part.filename) {
+				console.log("    The part is a file with name %s", part.filename);
+				var destPath = 'gallery/' + req.params.id + '/' + part.filename;
+				photo.name = part.filename;
+				photo.path = destPath;
 
 				var opts = {
 					Bucket: bucket,
@@ -265,13 +266,100 @@ app.post('/api/pets/:id/photos',
 
 		// Close emitted after form parsed
 		form.on('close', function() {
-			console.log("Form closed");
+			console.log("Form closed with photo: %o", photo);
 			
+			Photos.createPhoto(photo).then(function(photo){
+				console.log("Created photo: %o", photo);
+			});
 		});
 
 		form.parse(req);
 	}
 );
+
+app.get("/api/pets/:id/photos",
+	passport.authenticate('bearer', { session: false }),
+	function(req, res){
+
+		var petId = req.params.id;
+		console.log("GET req for photos of pet %o", petId);
+		
+		Photos.findPhotos(petId).then(function(photos){
+			console.log("photos found: ", photos)	
+			res.json(photos);
+		});
+	}
+);
+	
+
+/*app.post('/api/pets/:id/photos',
+	function(req, res) {
+
+		var form = new multiparty.Form();
+		var petId = req.params.id;
+
+		form.parse(req, function(err, fields, files) {
+
+			console.log("Fields %o", fields);
+			console.log("Files %o", files);
+
+			res.writeHead(200, {'content-type': 'text/plain'});
+			res.write('received upload');
+		});
+	}
+);*/
+
+/*********************/
+/******* login *******/
+/*********************/
+
+app.get('/auth/facebook', function(req, res, next){
+	
+	console.log("1) Calling FB Authentication");
+
+	passport.authenticate('facebook', {
+		session: false,
+		scope: [
+			'public_profile',
+			'email',
+			'publish_actions',
+			'user_friends'
+		]
+	})(req, res, next);
+});
+
+app.get('/auth/facebook/callback', function(req, res, next){
+	
+	var token = req.user?req.user.access_token:'';
+	console.log("2) Calling FB Callback with access_token %o", token);
+
+	passport.authenticate(
+		'facebook', {
+			session: false,
+			failureRedirect: '#/login'
+		},
+		function(error, user){
+			console.log("5) Passed verification callback with user:%o", user);
+			if(token == ''){
+				token = user?user.access_token:'';
+				console.log("6) No req.user or no req.user.access_token found, overwritting with user.access_token %o", token);
+			}
+			//res.json(user);
+			//res.redirect('/#/main?access_token=' + token);
+			//res.redirect('http://www.qpidog.es.s3-website-eu-west-1.amazonaws.com/#/main?access_token=' + token);
+			res.redirect('http://localhost:3000/#/main?access_token=' + token);
+		}
+	)(req, res, next);
+});
+
+
+/*********************/
+/******* start *******/
+/*********************/
+var nodePort = nconf.get('NODE_PORT');
+app.listen(nodePort);
+console.log("Cupidog server running on port:%s", nodePort);
+console.log("	Started at " + new Date() );
 
 /*app.post('/api/pets/:id/photos',
 	function(req, res) {
@@ -350,86 +438,3 @@ app.post('/api/pets/:id/photos',
 		});*
 	}
 );*/
-
-app.get("/api/pets/:id/photos",
-	passport.authenticate('bearer', { session: false }),
-	function(req, res){
-
-		var petId = req.params.id;
-		console.log("GET req for photos of pet %o", petId);
-		
-		Photos.findPhotos(petId).then(function(photos){
-			console.log("photos found: ", photos)	
-			res.json(photos);
-		});
-	}
-);
-	
-
-/*app.post('/api/pets/:id/photos',
-	function(req, res) {
-
-		var form = new multiparty.Form();
-		var petId = req.params.id;
-
-		form.parse(req, function(err, fields, files) {
-
-			console.log("Fields %o", fields);
-			console.log("Files %o", files);
-
-			res.writeHead(200, {'content-type': 'text/plain'});
-			res.write('received upload');
-		});
-	}
-);*/
-
-/*********************/
-/******* login *******/
-/*********************/
-
-app.get('/auth/facebook', function(req, res, next){
-	
-	console.log("1) Calling FB Authentication");
-
-	passport.authenticate('facebook', {
-		session: false,
-		scope: [
-			'public_profile',
-			'email',
-			'publish_actions',
-			'user_friends'
-		]
-	})(req, res, next);
-});
-
-app.get('/auth/facebook/callback', function(req, res, next){
-	
-	var token = req.user?req.user.access_token:'';
-	console.log("2) Calling FB Callback with access_token %o", token);
-
-	passport.authenticate(
-		'facebook', {
-			session: false,
-			failureRedirect: '#/login'
-		},
-		function(error, user){
-			console.log("5) Passed verification callback with user:%o", user);
-			if(token == ''){
-				token = user?user.access_token:'';
-				console.log("6) No req.user or no req.user.access_token found, overwritting with user.access_token %o", token);
-			}
-			//res.json(user);
-			//res.redirect('/#/main?access_token=' + token);
-			res.redirect('http://www.qpidog.es.s3-website-eu-west-1.amazonaws.com/#/main?access_token=' + token);
-		}
-	)(req, res, next);
-});
-
-
-/*********************/
-/******* start *******/
-/*********************/
-
-app.listen(3000);
-console.log("Cupidog server running on port 3000");
-console.log("	Started at " + new Date() );

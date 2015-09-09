@@ -1,12 +1,18 @@
 "use strict";
-angular.module('cupidog').factory('RestCliSrv', ['$http', '$rootScope', function($http, $rootScope){
+angular.module('cupidog').factory('RestCliSrv', ['$http', '$rootScope', 'ConfigSrv', function($http, $rootScope, ConfigSrv){
 
 	var _token; //String
-
+	var nodeServerUrl; //String
+	
+	ConfigSrv.getConfig().then(function(config){
+		nodeServerUrl = config.nodeServerUrl;
+	})
+	
 	/* Remember:
 		$http.get(...)
 		.success(function(data, status, headers, config).
-		.error(function(data, status, headers, config)*/
+		.error(function(data, status, headers, config)
+	*/
 
 	return {
 		
@@ -21,7 +27,7 @@ angular.module('cupidog').factory('RestCliSrv', ['$http', '$rootScope', function
 
 		getUser: function(){
 			console.log("Requesting user with token %s", this.getToken());
-			return $http.get( "/api/users?access_token=" + this.getToken() ).success(function(res){
+			return $http.get( nodeServerUrl + "/api/users?access_token=" + this.getToken() ).success(function(res){
 				return res;
 			}).error(function(res, status){
 				console.error("REST Cli getUser Error %s: %o", status, res);
@@ -33,7 +39,7 @@ angular.module('cupidog').factory('RestCliSrv', ['$http', '$rootScope', function
 		},
 
 		getUserByUserPassword: function(userId, password){
-			return $http.get("/api/users/" + userId + "?password=" + password ).success(function(res){
+			return $http.get( nodeServerUrl + "/api/users/" + userId + "?password=" + password ).success(function(res){
 				return res;
 			}).error(function(res, status){
 				console.error("REST Cli getUserByUserPassword Error %s: %o", status, res);
@@ -45,7 +51,7 @@ angular.module('cupidog').factory('RestCliSrv', ['$http', '$rootScope', function
 		},
 
 		getPets: function(userId){
-			return $http.get("/api/pets?user=" + userId + "&access_token=" + this.getToken() ).success(function(res){
+			return $http.get( nodeServerUrl + "/api/pets?user=" + userId + "&access_token=" + this.getToken() ).success(function(res){
 				return res;
 			}).error(function(res, status){
 				console.error("REST Cli Error getPets %s: %o", status, res);
@@ -57,7 +63,7 @@ angular.module('cupidog').factory('RestCliSrv', ['$http', '$rootScope', function
 		},
 
 		getSpecies: function(){
-			return $http.get( "/api/species?access_token=" + this.getToken() ).success(function(res){
+			return $http.get( nodeServerUrl +  "/api/species?access_token=" + this.getToken() ).success(function(res){
 				return res;
 			}).error(function(res, status){
 				console.error("REST Cli Error getSpecies %s: %o", status, res);
@@ -69,7 +75,7 @@ angular.module('cupidog').factory('RestCliSrv', ['$http', '$rootScope', function
 		},
 
 		getBreeds: function(species){
-			return $http.get("/api/breeds?access_token=" + this.getToken() + "&sp=" + species).success(function(res){
+			return $http.get( nodeServerUrl + "/api/breeds?access_token=" + this.getToken() + "&sp=" + species).success(function(res){
 				return res;
 			}).error(function(res, status){
 				console.error("REST Cli Error getBreeds %s: %o", status, res);
@@ -81,7 +87,7 @@ angular.module('cupidog').factory('RestCliSrv', ['$http', '$rootScope', function
 		},
 
 		createPet: function(pet){
-			return $http.post("/api/pets?access_token=" + this.getToken(), pet).success(function(res){
+			return $http.post( nodeServerUrl + "/api/pets?access_token=" + this.getToken(), pet).success(function(res){
 				return res;
 			}).error(function(res, status){
 				console.error("REST Cli Error savePet %s: %o", status, res);
@@ -93,7 +99,7 @@ angular.module('cupidog').factory('RestCliSrv', ['$http', '$rootScope', function
 		},
 
 		updatePet: function(pet){
-			return $http.put("/api/pets/" + pet._id + "?access_token=" + this.getToken() , pet).success(function(res){
+			return $http.put( nodeServerUrl + "/api/pets/" + pet._id + "?access_token=" + this.getToken() , pet).success(function(res){
 				return res;
 			}).error(function(res, status){
 				console.error("REST Cli Error savePet %s: %o", status, res);
@@ -109,10 +115,10 @@ angular.module('cupidog').factory('RestCliSrv', ['$http', '$rootScope', function
 			var url = "";
 
 			if(pet){
-				url = "/api/pets/" + pet._id + "/posts/";
+				url =  nodeServerUrl + "/api/pets/" + pet._id + "/posts/";
 			}
 			else{
-				url = "/api/posts";
+				url =  nodeServerUrl + "/api/posts";
 			}
 
 			return $http.get( url.concat( "?access_token=" + this.getToken() ) ).success(function(res){
@@ -133,7 +139,7 @@ angular.module('cupidog').factory('RestCliSrv', ['$http', '$rootScope', function
 			pet.status.userAuthorName = user.displayName?user.displayName:user.name;
 			pet.status.petAuthorName = pet.name;
 
-			return $http.post("/api/pets/" + pet._id + "/posts/?access_token=" + this.getToken(), pet.status).success(function(res){
+			return $http.post( nodeServerUrl + "/api/pets/" + pet._id + "/posts/?access_token=" + this.getToken(), pet.status).success(function(res){
 				return res;
 			}).error(function(res, status){
 				console.error("REST Cli Error updatePetStatus %s: %o", status, res);
@@ -145,7 +151,7 @@ angular.module('cupidog').factory('RestCliSrv', ['$http', '$rootScope', function
 		},
 
 		findPhotos: function(pet){
-			return $http.get( "/api/pets/" + pet._id + "/photos/?access_token=" + this.getToken() ).success(function(res){
+			return $http.get( nodeServerUrl + "/api/pets/" + pet._id + "/photos/?access_token=" + this.getToken() ).success(function(res){
 				return res;
 			}).error(function(res, status){
 				console.error("REST Cli Error getPhotos %s: %o", status, res);
@@ -159,7 +165,7 @@ angular.module('cupidog').factory('RestCliSrv', ['$http', '$rootScope', function
 		/*postPhotos: function(pet, photos){
 
 			console.log("Sending photos %o", photos);
-			return $http.post("/api/pets/" + pet._id + "/photos/", photos, {
+			return $http.post( nodeServerUrl + "/api/pets/" + pet._id + "/photos/", photos, {
 				transformRequest: angular.identity,
 				headers: {
 					'Content-Type': undefined

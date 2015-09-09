@@ -1,6 +1,14 @@
 "use strict";
 
-angular.module('cupidog').controller('LoginCtrl', ['$scope', '$http', '$state', 'SessionSrv', function($scope, $http, $state, SessionSrv){
+angular.module('cupidog').controller('LoginCtrl', ['$scope', '$state', 'SessionSrv', 'ConfigSrv', function($scope, $state, SessionSrv, ConfigSrv){
+
+	$scope.authUrls = {};
+	ConfigSrv.getConfig().then(function(config){
+		$scope.authUrls.facebook =	config.nodeServerUrl + config.authPaths.facebook;
+		$scope.authUrls.google =	config.nodeServerUrl + config.authPaths.google;
+		$scope.authUrls.twitter =	config.nodeServerUrl + config.authPaths.twitter;
+	});
+	
 
 	$scope.login = function(){
 

@@ -21,7 +21,7 @@ nconf.argv()
 //
 // Set a few variables on `nconf`.
 //
-nconf.set('port', 3000);
+nconf.set('foo', 'bar');
 
 var NODE_ENV = nconf.get('NODE_ENV');
 

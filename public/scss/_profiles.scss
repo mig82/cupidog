@@ -90,14 +90,14 @@
 	}
 }
 
-div.profile-pic{
+.profile-pic-container{
 
 	max-height: 100px;
 	max-width: 100px;
 	margin-bottom: 15px;
 	position: relative;
 
-	img{
+	.profile-pic-img{
 		@include box-shadow-helper(1);
 		position: absolute;
 		top: -20px;
