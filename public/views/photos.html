@@ -3,8 +3,6 @@
 	<h2>Manage Photos for {{pet.name}}</h2>
 
 	<img height="100px" src="{{pet.profilePic}}">
-	<input type="text" data-ng-model="pet.profilePic">
-	
 	
 	<!--watching model:
 	<div class="button" ngf-select ng-model="file" ngf-multiple="false">Select File</div>
@@ -36,9 +34,6 @@
 		</li>
 	</ul-->
 
-	<h4>Upload Log:</h4>
-	<pre>{{log}}</pre>
-
 	<div class="container-fluid">
 		<div class="row" >
 			<div class="col-xs-12 col-sm-4 gallery-container" data-ng-repeat="p in photos" >
@@ -52,6 +47,9 @@
 			</div>
 		</div>
 	</div>
+
+	<h4>Upload Log:</h4>
+	<pre>{{log}}</pre>
 	
 	<!--form>
 		<!--input type="file" name="files" data-ng-model="photos" multiple onchange="angular.element(this).scope().filesChanged(this)"->
