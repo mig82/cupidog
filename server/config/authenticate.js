@@ -8,64 +8,24 @@ var Users = ds.Users;
 var fs = require('fs');
 var nconf = require('nconf');
 
-//
 // Setup nconf to use (in-order):
 //	 1. Command-line arguments
 //	 2. Environment variables
 //	 3. A file located at 'path/to/config.json'
-//
 nconf.argv()
-	.env()
-	.file({ file: 'server/config/config.json' });
-
-//
-// Set a few variables on `nconf`.
-//
-nconf.set('foo', 'bar');
+	 .env();
 
 var NODE_ENV = nconf.get('NODE_ENV');
 
-/*******************************/
-/***** Production settings *****/
-/*******************************/
-var fbProdConf = {
-	APP_DOMAIN: "https://www.cupidog.es:3000",
-	FACEBOOK_APP_ID: '1632816823668819',
-	FACEBOOK_APP_SECRET: '36f1bba41f9fd569714519333c1a3870',
-	FACEBOOK_API_VERSION: 'v2.4'
-}
-
-/*******************************/
-/******** Test settings ********/
-/*******************************/
-var fbTestConf = {
-	APP_DOMAIN: "http://ec2-52-28-118-238.eu-central-1.compute.amazonaws.com:3000",
-	FACEBOOK_APP_ID: '1632816823668819',
-	FACEBOOK_APP_SECRET: '36f1bba41f9fd569714519333c1a3870',
-	FACEBOOK_API_VERSION: 'v2.4',
-}
-
-/*******************************/
-/***** Development settings ****/
-/*******************************/
-var fbDevConf = {
-	APP_DOMAIN: "http://localhost:3000",
-	FACEBOOK_APP_ID: '1636117153338786',
-	FACEBOOK_APP_SECRET: 'a40b2c53643f53d28e0d9b9f584ffd9e',
-	FACEBOOK_API_VERSION: 'v2.4'
-}
-
-var fbConf = {};
-if(NODE_ENV === 'prod') {
-	fbConf = fbProdConf;
-}
-else if (NODE_ENV === 'test'){
-	fbConf = fbTestConf
+if(NODE_ENV){
+	var configFilePath = 'server/config/server_config_' + NODE_ENV + '.json';
+	nconf.file({ file: configFilePath });
 }
 else{
-	fbConf = fbDevConf;
+	console.error("ERROR: NODE_ENV is not defined. No server_config_{NODE_ENV}.json file loaded.");
 }
-nconf.set('fbConf', fbConf);
+
+var fbConf = nconf.get('FB_AUTH_CONF');
 
 //See what's happening...
 console.log('NODE_ENV: ' + NODE_ENV);
@@ -73,12 +33,11 @@ console.log('APP_DOMAIN:' + fbConf.APP_DOMAIN);
 
 //
 // Save the configuration object to disk
-//
-nconf.save(function (err) {
-	fs.readFile('server/config/config.json', function (err, data) {
+/*nconf.save(function (err) {
+	fs.readFile( configFilePath , function (err, data) {
 		//console.dir(JSON.parse(data.toString())) //TODO: returning undefined in AWS. Don't know why yet
 	});
-});
+});*/
 
 passport.use(
 	new FacebookStrategy({

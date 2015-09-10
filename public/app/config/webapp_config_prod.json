@@ -1,0 +1,8 @@
+{
+	"nodeServerUrl": "http://ec2-52-28-118-238.eu-central-1.compute.amazonaws.com:3000",
+	"authPaths": {
+		"facebook":	"/auth/facebook",
+		"google":	"/auth/google",
+		"twitter":	"/auth/twitter"
+	}
+}

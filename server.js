@@ -328,6 +328,7 @@ app.get('/auth/facebook', function(req, res, next){
 	})(req, res, next);
 });
 
+var webAppUrl = nconf.get('WEBAPP_URL');
 app.get('/auth/facebook/callback', function(req, res, next){
 	
 	var token = req.user?req.user.access_token:'';
@@ -345,9 +346,7 @@ app.get('/auth/facebook/callback', function(req, res, next){
 				console.log("6) No req.user or no req.user.access_token found, overwritting with user.access_token %o", token);
 			}
 			//res.json(user);
-			//res.redirect('/#/main?access_token=' + token);
-			//res.redirect('http://www.qpidog.es.s3-website-eu-west-1.amazonaws.com/#/main?access_token=' + token);
-			res.redirect('http://localhost:3000/#/main?access_token=' + token);
+			res.redirect( webAppUrl + '/#/main?access_token=' + token);
 		}
 	)(req, res, next);
 });

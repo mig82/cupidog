@@ -10,7 +10,7 @@ angular.module('cupidog').factory('ConfigSrv', ['$q', function($q){
 		}
 		else{
 			//console.log("3 Config from file");
-			return _loadDefaultConfig("/app/config/default_config.json").then(function(data){
+			return _loadDefaultConfig("/app/config/webapp_config.json").then(function(data){
 				config = data;
 				return config;
 			});

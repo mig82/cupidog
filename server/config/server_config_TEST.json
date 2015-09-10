@@ -1,0 +1,17 @@
+{
+	"NODE_PORT": 3000,
+	
+	"S3_BUCKET":	"www.qpidog.es",
+	"S3_KEY":		"AKIAJDNC3ODEPBGJ36NA",
+	"S3_SECRET":	"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",
+	"S3_REGION":	"eu-west-1",
+	
+	"FB_AUTH_CONF": {
+		"APP_DOMAIN": 			"http://ec2-52-28-118-238.eu-central-1.compute.amazonaws.com:3000",
+		"FACEBOOK_APP_ID": 		"1632816823668819",
+		"FACEBOOK_APP_SECRET": 	"36f1bba41f9fd569714519333c1a3870",
+		"FACEBOOK_API_VERSION":	"v2.4"
+	},
+
+	"WEBAPP_URL": "http://www.qpidog.es.s3-website-eu-west-1.amazonaws.com"
+}
