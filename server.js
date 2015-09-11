@@ -10,10 +10,13 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var passport = require('./server/config/authenticate').passport;
 
+var webAppUrl = nconf.get('WEBAPP_URL');
+
 //Allow CORS
 app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', webAppUrl);
   res.setHeader('Access-Control-Allow-Headers', 'content-type');
+  res.setHeader('Access-Control-Allow-Methods', 'HEAD,GET,OPTIONS,PUT,POST,DELETE'); //'GET,HEAD,PUT,PATCH,POST,DELETE'
   next();
 });
 
@@ -335,7 +338,6 @@ app.get('/auth/facebook', function(req, res, next){
 	})(req, res, next);
 });
 
-var webAppUrl = nconf.get('WEBAPP_URL');
 app.get('/auth/facebook/callback', function(req, res, next){
 	
 	var token = req.user?req.user.access_token:'';
