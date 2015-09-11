@@ -1,7 +1,12 @@
 "use strict";
 angular.module('cupidog')
 
-.controller('PhotosCtrl', ['$scope', 'Upload', '$timeout', 'SessionSrv', function ($scope, Upload, $timeout, SessionSrv) {
+.controller('PhotosCtrl', ['$scope', 'Upload', '$timeout', 'SessionSrv', 'ConfigSrv', function ($scope, Upload, $timeout, SessionSrv, ConfigSrv) {
+
+	var nodeServerUrl; //String
+	ConfigSrv.getConfig().then(function(config){
+		nodeServerUrl = config.nodeServerUrl;
+	})
 
 	function getPhotos(){
 		SessionSrv.findPhotos().then(function(photos){
@@ -35,7 +40,7 @@ angular.module('cupidog')
 				var file = files[i];
 				Upload.upload({
 					method: 'POST',
-					url: "/api/pets/" + petId + "/photos/",//'https://angular-file-upload-cors-srv.appspot.com/upload',
+					url: nodeServerUrl + "/api/pets/" + petId + "/photos/",//'https://angular-file-upload-cors-srv.appspot.com/upload',
 					fields: {
 						'petId': petId,
 						'userId': userId,
