@@ -10,6 +10,12 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var passport = require('./server/config/authenticate').passport;
 
+//Allow CORS
+app.use(function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  next();
+});
+
 app.use(express.static(__dirname + "/public"));
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -159,7 +165,6 @@ app.get('/api/users',
 			else{
 				console.warn("Token auth failed for user: %o", user);
 			}
-			res.setHeader('Access-Control-Allow-Origin', '*');
 			res.json(user);
 		});
 	}
