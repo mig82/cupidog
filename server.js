@@ -137,7 +137,6 @@ app.get('/api/users/:email', function(req, res) {
 			else{
 				console.log("Authentication failed for " + email + ":" + psswd);
 			}
-			res.setHeader('Access-Control-Allow-Origin', '*');
 			res.json(user);
 		});
 
@@ -160,6 +159,7 @@ app.get('/api/users',
 			else{
 				console.warn("Token auth failed for user: %o", user);
 			}
+			res.setHeader('Access-Control-Allow-Origin', '*');
 			res.json(user);
 		});
 	}
