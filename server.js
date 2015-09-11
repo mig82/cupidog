@@ -137,6 +137,7 @@ app.get('/api/users/:email', function(req, res) {
 			else{
 				console.log("Authentication failed for " + email + ":" + psswd);
 			}
+			res.setHeader('Access-Control-Allow-Origin', '*');
 			res.json(user);
 		});
 

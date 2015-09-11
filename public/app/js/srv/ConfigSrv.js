@@ -1,16 +1,17 @@
 angular.module('cupidog').factory('ConfigSrv', ['$q', function($q){
 
 	var config;
+	var configFilePath = "/app/config/webapp_config.json";
 
 	var _getConfig = function(){
 		//console.log("2 Config");
 		if(config){
-			//console.log("3 Config from cache");
+			console.log("3 Config from cache");
 			return $q.when(config);
 		}
 		else{
-			//console.log("3 Config from file");
-			return _loadDefaultConfig("/app/config/webapp_config.json").then(function(data){
+			console.log("3 Config from file %s", configFilePath);
+			return _loadDefaultConfig( configFilePath ).then(function(data){
 				config = data;
 				return config;
 			});
@@ -22,7 +23,7 @@ angular.module('cupidog').factory('ConfigSrv', ['$q', function($q){
 		return new Promise(function(resolve, reject)
 		{
 			// do a thing, possibly async, then…
-			var defaultConfig;
+			var config;
 			var xhr = new XMLHttpRequest();
 			xhr.open("GET", fileName, true);
 
@@ -30,9 +31,9 @@ angular.module('cupidog').factory('ConfigSrv', ['$q', function($q){
 			xhr.onload = function() {
 				
 				if (xhr.status == 200) {
-					defaultConfig = JSON.parse(xhr.responseText);
-					console.info('default config is %o', defaultConfig);
-					resolve(defaultConfig);
+					config = JSON.parse(xhr.responseText);
+					console.info('WebApp config is %o', config);
+					resolve(config);
 				}
 				else{
 					console.error("Error loading default data");
