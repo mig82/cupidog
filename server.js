@@ -13,6 +13,7 @@ var passport = require('./server/config/authenticate').passport;
 //Allow CORS
 app.use(function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', 'content-type');
   next();
 });
 
