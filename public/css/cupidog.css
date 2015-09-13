@@ -224,10 +224,18 @@ input.ng-invalid-required.ng-dirty {
   margin-bottom: 0.5em; }
 
 .li-btn-qpidog {
-  background: transparent -moz-linear-gradient(center top, #CDDC39, #B1C210) repeat scroll 0% 0%; }
+  background: transparent -moz-linear-gradient(#CDDC39, #B1C210) repeat scroll 0% 0%;
+  background: transparent -webkit-linear-gradient(#CDDC39, #B1C210) repeat scroll 0% 0%;
+  background: transparent -o-linear-gradient(#CDDC39, #B1C210) repeat scroll 0% 0%;
+  background: transparent -ms-linear-gradient(#CDDC39, #B1C210) repeat scroll 0% 0%;
+  background: transparent linear-gradient(#CDDC39, #B1C210) repeat scroll 0% 0%; }
 
 .li-btn-fb {
-  background: transparent -moz-linear-gradient(center top, #3B5998, #2D4373) repeat scroll 0% 0%; }
+  background: transparent -moz-linear-gradient(#3B5998, #2D4373) repeat scroll 0% 0%;
+  background: transparent -webkit-linear-gradient(#3B5998, #2D4373) repeat scroll 0% 0%;
+  background: transparent -o-linear-gradient(#3B5998, #2D4373) repeat scroll 0% 0%;
+  background: transparent -ms-linear-gradient(#3B5998, #2D4373) repeat scroll 0% 0%;
+  background: transparent linear-gradient(#3B5998, #2D4373) repeat scroll 0% 0%; }
 
 .li-btn-fb:hover, .li-btn-fb:visited, .li-btn-fb:link, .li-btn-fb:active,
 .li-btn-fb:hover, .li-btn-fb:visited, .li-btn-fb:link, .li-btn-fb:active {
@@ -247,7 +255,11 @@ input.ng-invalid-required.ng-dirty {
   font-size: 16px !important; }
 
 .li-btn-g {
-  background: transparent -moz-linear-gradient(center top, #FE5347, #FF3A10) repeat scroll 0% 0%; }
+  background: transparent -moz-linear-gradient(#FE5347, #FF3A10) repeat scroll 0% 0%;
+  background: transparent -webkit-linear-gradient(#FE5347, #FF3A10) repeat scroll 0% 0%;
+  background: transparent -o-linear-gradient(#FE5347, #FF3A10) repeat scroll 0% 0%;
+  background: transparent -ms-linear-gradient(#FE5347, #FF3A10) repeat scroll 0% 0%;
+  background: transparent linear-gradient(#FE5347, #FF3A10) repeat scroll 0% 0%; }
 
 .li-btn-g:hover, .li-btn-g:visited, .li-btn-g:link, .li-btn-g:active,
 .li-btn-g:hover, .li-btn-g:visited, .li-btn-g:link, .li-btn-g:active {
@@ -267,7 +279,11 @@ input.ng-invalid-required.ng-dirty {
   font-size: 16px !important; }
 
 .li-btn-t {
-  background: transparent -moz-linear-gradient(center top, #2FC2EF, #3F859B) repeat scroll 0% 0%; }
+  background: transparent -moz-linear-gradient(#2FC2EF, #3F859B) repeat scroll 0% 0%;
+  background: transparent -webkit-linear-gradient(#2FC2EF, #3F859B) repeat scroll 0% 0%;
+  background: transparent -o-linear-gradient(#2FC2EF, #3F859B) repeat scroll 0% 0%;
+  background: transparent -ms-linear-gradient(#2FC2EF, #3F859B) repeat scroll 0% 0%;
+  background: transparent linear-gradient(#2FC2EF, #3F859B) repeat scroll 0% 0%; }
 
 .li-btn-t:hover, .li-btn-t:visited, .li-btn-t:link, .li-btn-t:active,
 .li-btn-t:hover, .li-btn-t:visited, .li-btn-t:link, .li-btn-t:active {

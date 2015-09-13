@@ -39,14 +39,22 @@
 	margin-bottom: 0.5em;
 }
 
+@mixin li-btn-background-mix($color1, $color2){
+	background: transparent    -moz-linear-gradient($color1, $color2) repeat scroll 0% 0%;
+	background: transparent -webkit-linear-gradient($color1, $color2) repeat scroll 0% 0%;
+	background: transparent      -o-linear-gradient($color1, $color2) repeat scroll 0% 0%;
+	background: transparent     -ms-linear-gradient($color1, $color2) repeat scroll 0% 0%;
+	background: transparent         linear-gradient($color1, $color2) repeat scroll 0% 0%;
+}
+
 .li-btn-qpidog{
 	@extend .li-btn;
-	background: transparent -moz-linear-gradient(center top , $primary-color, #B1C210) repeat scroll 0% 0%;
+	@include li-btn-background-mix($primary-color, #B1C210);
 }
 
 .li-btn-fb{
 	@extend .li-btn;
-	background: transparent -moz-linear-gradient(center top , #3B5998, #2D4373) repeat scroll 0% 0%;
+	@include li-btn-background-mix(#3B5998, #2D4373);
 }
 
 .li-btn-fb:hover, .li-btn-fb:visited, .li-btn-fb:link, .li-btn-fb:active,
@@ -70,7 +78,7 @@
 
 .li-btn-g{
 	@extend .li-btn;
-	background: transparent -moz-linear-gradient(center top , #FE5347, #FF3A10) repeat scroll 0% 0%;
+	@include li-btn-background-mix(#FE5347, #FF3A10);
 }
 
 .li-btn-g:hover, .li-btn-g:visited, .li-btn-g:link, .li-btn-g:active,
@@ -94,7 +102,7 @@
 
 .li-btn-t{
 	@extend .li-btn;
-	background: transparent -moz-linear-gradient(center top , #2FC2EF, #3F859B) repeat scroll 0% 0%;
+	@include li-btn-background-mix(#2FC2EF, #3F859B);
 }
 
 .li-btn-t:hover, .li-btn-t:visited, .li-btn-t:link, .li-btn-t:active,
