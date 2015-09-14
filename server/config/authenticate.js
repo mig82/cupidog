@@ -16,29 +16,34 @@ nconf.argv()
 	 .env();
 
 var NODE_ENV = nconf.get('NODE_ENV');
+var CONFIG_PATH = nconf.get('CONFIG_PATH');
+
 console.log('    NODE_ENV: ' + NODE_ENV);
+console.log('    CONFIG_PATH: ' + CONFIG_PATH);
 
-var configFilePath = './server/config/server_config';
+if(!CONFIG_PATH){
+	CONFIG_PATH = './server/config/server_config';
 
-if(NODE_ENV){
-	configFilePath += '_' + NODE_ENV + '.json';
+	if(NODE_ENV){
+		CONFIG_PATH += '_' + NODE_ENV + '.json';
+	}
+	else{
+		CONFIG_PATH += '.json';
+		console.warn("WARN: NODE_ENV is not defined");
+	}
 }
-else{
-	configFilePath += '.json';
-	console.warn("WARN: NODE_ENV is not defined");
-}
 
-console.log("Will load config from '%s'", configFilePath);
+console.log("Will load config from '%s'", CONFIG_PATH);
 
 try{
-	nconf.file({ file: configFilePath });
+	nconf.file({ file: CONFIG_PATH });
 	nconf.load(function(obj){
-		console.log("    Success loading config file from '%s'", configFilePath);
+		console.log("    Success loading config file from '%s'", CONFIG_PATH);
 		console.log("    WEBAPP_URL:", nconf.get('WEBAPP_URL'));
 	});
 }
 catch(err){
-	console.error("ERROR: Unable to load config from '%s': %o", configFilePath, err);
+	console.error("ERROR: Unable to load config from '%s': %o", CONFIG_PATH, err);
 	console.error(err);
 }
 
@@ -47,7 +52,7 @@ console.log('    APP_DOMAIN:' + fbConf.APP_DOMAIN);
 
 // Save the configuration object to disk
 /*nconf.save(function (err) {
-	fs.readFile( configFilePath , function (err, data) {
+	fs.readFile( CONFIG_PATH , function (err, data) {
 		//console.dir(JSON.parse(data.toString())) //TODO: returning undefined in AWS. Don't know why yet
 	});
 });*/
