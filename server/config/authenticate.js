@@ -16,22 +16,35 @@ nconf.argv()
 	 .env();
 
 var NODE_ENV = nconf.get('NODE_ENV');
+console.log('    NODE_ENV: ' + NODE_ENV);
+
+var configFilePath = './server/config/server_config';
 
 if(NODE_ENV){
-	var configFilePath = 'server/config/server_config_' + NODE_ENV + '.json';
-	nconf.file({ file: configFilePath });
+	configFilePath += '_' + NODE_ENV + '.json';
 }
 else{
-	console.error("ERROR: NODE_ENV is not defined. No server_config_{NODE_ENV}.json file loaded.");
+	configFilePath += '.json';
+	console.warn("WARN: NODE_ENV is not defined");
+}
+
+console.log("Will load config from '%s'", configFilePath);
+
+try{
+	nconf.file({ file: configFilePath });
+	nconf.load(function(obj){
+		console.log("    Success loading config file from '%s'", configFilePath);
+		console.log("    WEBAPP_URL:", nconf.get('WEBAPP_URL'));
+	});
+}
+catch(err){
+	console.error("ERROR: Unable to load config from '%s': %o", configFilePath, err);
+	console.error(err);
 }
 
 var fbConf = nconf.get('FB_AUTH_CONF');
+console.log('    APP_DOMAIN:' + fbConf.APP_DOMAIN);
 
-//See what's happening...
-console.log('NODE_ENV: ' + NODE_ENV);
-console.log('APP_DOMAIN:' + fbConf.APP_DOMAIN);
-
-//
 // Save the configuration object to disk
 /*nconf.save(function (err) {
 	fs.readFile( configFilePath , function (err, data) {

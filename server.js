@@ -366,8 +366,8 @@ app.get('/auth/facebook/callback', function(req, res, next){
 /*********************/
 var nodePort = nconf.get('NODE_PORT');
 app.listen(nodePort);
-console.log("Cupidog server running on port:%s", nodePort);
-console.log("	Started at " + new Date() );
+console.log("    Cupidog server running on port:%s", nodePort);
+console.log("    Started at " + new Date() );
 
 /*app.post('/api/pets/:id/photos',
 	function(req, res) {
