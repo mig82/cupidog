@@ -1,5 +1,9 @@
 "use strict";
 
+console.log();console.log();console.log();
+console.log("********************************");
+console.log("****** Starting Cupidog ********");
+console.log("********************************");
 var express = require('express');
 var app = express();
 
